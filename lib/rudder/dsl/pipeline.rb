@@ -1,10 +1,12 @@
+# require_relative 'group'
 require_relative 'job'
 require_relative 'resource'
-# require_relative 'group'
+require_relative 'util'
 
 module Rudder
   module DSL
     class Pipeline
+      include Rudder::DSL::Util
       def initialize
         @resources     = {}
         @jobs          = {}
@@ -17,8 +19,11 @@ module Rudder
       end
 
       def to_h
-        h = { resources: @resources, jobs: @jobs }
-        h[:groups] = @groups if @groups.size > 0
+        h = {
+          'resources' => _convert_h_val(@resources.values),
+          'jobs' => _convert_h_val(@jobs.values)
+        }
+        h['groups'] = _convert_h_val(@groups.values) if @groups.size > 0
         h
       end
 
@@ -45,7 +50,7 @@ module Rudder
         component_group[name] = component
       end
 
-      def respond_to?(name)
+      def respond_to?(name, include_all=true)
         @known_classes.key? name
       end
 

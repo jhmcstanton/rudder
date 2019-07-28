@@ -1,12 +1,19 @@
+require_relative 'util'
+
 module Rudder
   module DSL
     #
     # Base class for other pipeline sub components to extend
     #
     class Component
+      include Rudder::DSL::Util
 
       def _inner_hash
         raise "Implement this in a subclass"
+      end
+
+      def to_h
+        _deep_to_h(_inner_hash)
       end
 
       #
@@ -14,10 +21,6 @@ module Rudder
       # their arguments
       #
       def method_missing(m, *args, **kwargs)
-        # puts "Remove these lines, m: #{m}"
-        # puts "args: #{args}"
-        # puts "kwargs: #{kwargs}"
-
         # Accessing inner hash as attribute
         if args.size == 0 && kwargs.size == 0
           return _inner_hash[m]
@@ -35,7 +38,7 @@ module Rudder
         _inner_hash[m] = formatted_args
       end
 
-      def respond_to?(name)
+      def respond_to?(name, include_all=true)
         true
       end
     end

@@ -16,7 +16,10 @@ module Rudder
         @resource          = {}
         @resource[:name  ] = name.to_s
         @resource[:type  ] = type
-        @resource[:source] = {}
+
+        # @source here just provides a handy hook when running instance_eval
+        @source            = {}
+        @resource[:source] = @source
       end
 
       #
@@ -24,10 +27,6 @@ module Rudder
       #
       def sub_path(child_path)
         File.join(@resource[:name], child_path)
-      end
-
-      def source
-        yield @resource[:source]
       end
 
       def _inner_hash
