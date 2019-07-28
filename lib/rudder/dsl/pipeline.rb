@@ -1,6 +1,7 @@
 # require_relative 'group'
 require_relative 'job'
 require_relative 'resource'
+require_relative 'resource_type'
 require_relative 'util'
 
 module Rudder
@@ -8,13 +9,15 @@ module Rudder
     class Pipeline
       include Rudder::DSL::Util
       def initialize
-        @resources     = {}
-        @jobs          = {}
-        @groups        = {}
-        @known_classes = {
+        @resources      = {}
+        @jobs           = {}
+        @groups         = {}
+        @resource_types = {}
+        @known_classes  = {
           resource: { clazz: Resource, pipeline_group: @resources },
-          job:      { clazz: Job     , pipeline_group: @jobs      }
+          job:      { clazz: Job     , pipeline_group: @jobs      },
           # group: { clazz: Group, pipeline_group: @groups }
+          resource_type: { clazz: ResourceType, pipeline_group: @resource_types }
         }
       end
 
@@ -24,6 +27,9 @@ module Rudder
           'jobs' => _convert_h_val(@jobs.values)
         }
         h['groups'] = _convert_h_val(@groups.values) if @groups.size > 0
+        if @resource_types.size > 0
+          h['resource_types'] = _convert_h_val(@resource_types.values)
+        end
         h
       end
 
