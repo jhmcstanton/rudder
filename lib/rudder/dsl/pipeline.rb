@@ -64,6 +64,7 @@ module Rudder
       # and 1 job), then this will return one pretty much at random.
       # TODO: Make this not bad
       # Oh well..
+      # TODO: This may be returning a non-nil/non-falsey type that causes some issues
       def _get_local_component(p)
         p = p.to_sym
         locals = @known_classes.values.map do |m|

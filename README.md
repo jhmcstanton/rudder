@@ -2,7 +2,31 @@
 
 This gem provides a DSL for building [Concourse CI](https://concourse-ci.org/) pipelines.
 
-TODO: Add examples
+## Goals
+
+The intent of this project is to allow Concourse users to build complex pipelines with
+a fully featured language rather than error-prone YAML files. 
+
+Related goals:
+
+- Support referencing first-class concourse features (`resource-types`, `resources`,
+  `jobs`, etc) inside pipeline definition (for example, a task may be able to use
+  a previously defined resource as an input by passing a reference to it, rather
+  than just its name)
+- Small amounts of pipeline validation
+
+## Non-Goals
+
+- Tieing this project directly to concourse. The ecosystem is fairly large, so supporting
+  all resources the community creates or each new feature of concourse would be arduous.
+  Instead this aims to be general, at the cost of allowing users to create incorrect
+  pipelines
+
+## Development
+
+Use `docker-compose up` to stand up a local concourse instance for pipeline development.
+Credit goes to Stark and Wayne for their excellent [Concourse tutorial](https://github.com/starkandwayne/concourse-tutorial/)
+that includes the `docker-compose.yml` found here.
 
 ## Installation
 
