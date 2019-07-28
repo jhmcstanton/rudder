@@ -13,7 +13,14 @@ Related goals:
   `jobs`, etc) inside pipeline definition (for example, a task may be able to use
   a previously defined resource as an input by passing a reference to it, rather
   than just its name)
+- Support breaking pipeline definitions into multiple pieces to allow composing
+  them together
 - Small amounts of pipeline validation
+
+### Current State
+
+Currently this project supports building a pipeline from a single definition file.
+Nearly zero validation is performed and pipeline combinators are not yet implemented.
 
 ## Non-Goals
 
