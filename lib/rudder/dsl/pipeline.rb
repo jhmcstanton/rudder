@@ -18,7 +18,7 @@ module Rudder
 
       def to_h
         h = { resources: @resources, jobs: @jobs }
-        h[:groups] = @groups if groups.size > 0
+        h[:groups] = @groups if @groups.size > 0
         h
       end
 
