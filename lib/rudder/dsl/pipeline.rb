@@ -8,7 +8,11 @@ module Rudder
   module DSL
     class Pipeline
       include Rudder::DSL::Util
-      def initialize
+      attr_accessor :resources
+      attr_accessor :jobs
+      # attr_accessor :groups
+      attr_accessor :resource_types
+      def initialize(file_path = nil)
         @resources      = {}
         @jobs           = {}
         @groups         = {}
@@ -19,6 +23,8 @@ module Rudder
           # group: { clazz: Group, pipeline_group: @groups }
           resource_type: { clazz: ResourceType, pipeline_group: @resource_types }
         }
+        @pipelines = {}
+        @file_path = file_path
       end
 
       def to_h
@@ -58,6 +64,40 @@ module Rudder
 
       def respond_to?(name, include_all=true)
         @known_classes.key? name
+      end
+
+      # Evaluates the given file path.
+      # If file_path nil, defaults to the one provided at construction time
+      # If both are nil, raises an exception
+      def eval(file_path = nil)
+        @file_path = file_path || @file_path
+        if @file_path.nil?
+          raise 'File path must be provided at Pipeline initialization or eval call'
+        end
+        if @known_classes.values.map{ |m| m[:pipeline_group].size > 0 }.any?
+          raise 'Pipelines must only be evaluated once'
+        end
+        File.open(@file_path) do |f|
+          instance_eval f.read, @file_path
+        end
+        self
+      end
+
+      # Given a path relative to this pipeline, loads another
+      # pipeline and returns it
+      #
+      # Note that this includes _nothing_ from the relative pipeline in this
+      # one, instead just returning the pipeline to be manipulated
+      def load(other_pipeline_path)
+        if @pipelines.key? other_pipeline_path
+          @pipelines[other_pipeline_path]
+        else
+          dir = File.dirname(@file_path)
+          full_path = File.join(dir, other_pipeline_path)
+          pipeline = Rudder::DSL::Pipeline.new(full_path).eval
+          @pipelines[other_pipeline_path] = pipeline
+          pipeline
+        end
       end
 
       # Yikes! Seems like a bad idea - if someone uses the same name twice (say, 1 resource
