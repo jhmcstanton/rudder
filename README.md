@@ -20,7 +20,9 @@ Related goals:
 ### Current State
 
 Currently this project supports building a pipeline from a single definition file.
-Nearly zero validation is performed and pipeline combinators are not yet implemented.
+Pipelines can utilize other pipeline definitions by either entirely importing
+the contents or borrowing only specific pieces.
+Almost zero validation is performed.
 
 ## Non-Goals
 
