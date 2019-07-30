@@ -4,8 +4,8 @@ git_resources.each do |r|
   job "git log #{r.name}" do
     @plan << { get: r.name, trigger: true }
     task = {
-      task: "git show HEAD #{r.name}", config: {
-        inputs: [ name: r.name],
+      task: "git log #{r.name}", config: {
+        inputs: [ name: r.name ],
         platform: 'linux',
         image_resource: {type: 'docker-image', source: {repository: 'alpine/git'}},
         run: {
