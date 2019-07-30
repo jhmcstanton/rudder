@@ -1,4 +1,4 @@
-common = load('common.pipeline')
+common = load('common.rb')
 
 resource :timer, :time do
   @source[:interval] = '5m'

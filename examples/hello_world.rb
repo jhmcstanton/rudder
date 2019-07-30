@@ -37,7 +37,7 @@ job :cat_self do |pipeline|
            image_resource: {type: 'docker-image', source: {repository: 'busybox'}},
            run: {
              path: 'cat',
-             args: [pipeline.rudder_git.sub_path('examples/hello_world.pipeline')]
+             args: [pipeline.rudder_git.sub_path('examples/hello_world.rb')]
            }
         }})
 end
