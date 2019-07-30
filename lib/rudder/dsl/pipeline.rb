@@ -107,6 +107,26 @@ module Rudder
         end
       end
 
+      # Given a path to a component, its class, and
+      # any args required to construct it, creates
+      # a new component
+      #
+      # Note that this automatically includes the component into this pipeline
+      #
+      def load_component(component_path, class_sym, name, *args)
+        raise "Unable to load #{clazz}" unless @known_classes.keys.include? class_sym
+        raise "Name must not be nil" if name.nil?
+
+        dir = File.dirname(@file_path)
+        full_path = File.join(dir, component_path)
+        component = @known_classes[class_sym][:clazz].new(name, *args)
+        File.open(full_path) do |f|
+          component.instance_eval f.read, full_path
+        end
+        @known_classes[class_sym][:pipeline_group][name] = component
+        component
+      end
+
       # Yikes! Seems like a bad idea - if someone uses the same name twice (say, 1 resource
       # and 1 job), then this will return one pretty much at random.
       # TODO: Make this not bad
