@@ -25,6 +25,8 @@ module Rudder
         else
           if v.is_a? Rudder::DSL::Component
             v.to_h
+          elsif v.respond_to? :to_h
+            v.to_h
           else
             v
           end

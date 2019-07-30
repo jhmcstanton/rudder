@@ -1,4 +1,4 @@
-# require_relative 'group'
+ require_relative 'group'
 require_relative 'job'
 require_relative 'resource'
 require_relative 'resource_type'
@@ -10,17 +10,18 @@ module Rudder
       include Rudder::DSL::Util
       attr_accessor :resources
       attr_accessor :jobs
-      # attr_accessor :groups
+      attr_accessor :groups
       attr_accessor :resource_types
-      def initialize(file_path = nil)
-        @resources      = {}
-        @jobs           = {}
-        @groups         = {}
-        @resource_types = {}
+      def initialize(file_path = nil, resources: {}, jobs: {},
+                     groups: {}, resource_types: {})
+        @resources      = resources
+        @jobs           = jobs
+        @groups         = groups
+        @resource_types = resource_types
         @known_classes  = {
-          resource: { clazz: Resource, pipeline_group: @resources },
-          job:      { clazz: Job     , pipeline_group: @jobs      },
-          # group: { clazz: Group, pipeline_group: @groups }
+          resource:      { clazz: Resource    , pipeline_group: @resources      },
+          job:           { clazz: Job         , pipeline_group: @jobs           },
+          group:         { clazz: Group       , pipeline_group: @groups         },
           resource_type: { clazz: ResourceType, pipeline_group: @resource_types }
         }
         @pipelines = {}
@@ -30,7 +31,7 @@ module Rudder
       def to_h
         h = {
           'resources' => _convert_h_val(@resources.values),
-          'jobs' => _convert_h_val(@jobs.values)
+          'jobs'      => _convert_h_val(@jobs.values)
         }
         h['groups'] = _convert_h_val(@groups.values) if @groups.size > 0
         if @resource_types.size > 0
@@ -74,9 +75,6 @@ module Rudder
         if @file_path.nil?
           raise 'File path must be provided at Pipeline initialization or eval call'
         end
-        if @known_classes.values.map{ |m| m[:pipeline_group].size > 0 }.any?
-          raise 'Pipelines must only be evaluated once'
-        end
         File.open(@file_path) do |f|
           instance_eval f.read, @file_path
         end
@@ -88,13 +86,22 @@ module Rudder
       #
       # Note that this includes _nothing_ from the relative pipeline in this
       # one, instead just returning the pipeline to be manipulated
-      def load(other_pipeline_path)
+      #
+      # May also optionally provides hashes for
+      # - resources
+      # - resource_types
+      # - jobs
+      # - groups
+      def load(other_pipeline_path, resources: {}, resource_types: {},
+               jobs: {}, groups: {})
         if @pipelines.key? other_pipeline_path
           @pipelines[other_pipeline_path]
         else
           dir = File.dirname(@file_path)
           full_path = File.join(dir, other_pipeline_path)
-          pipeline = Rudder::DSL::Pipeline.new(full_path).eval
+          pipeline = Rudder::DSL::Pipeline.new(
+            full_path, resources: resources, resource_types: resource_types,
+            jobs: jobs, groups: groups).eval
           @pipelines[other_pipeline_path] = pipeline
           pipeline
         end
