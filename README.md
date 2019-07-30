@@ -24,6 +24,12 @@ Pipelines can utilize other pipeline definitions by either entirely importing
 the contents or borrowing only specific pieces.
 Almost zero validation is performed.
 
+TODOs:
+
+- Add unit tests
+- Add helper methods for loading files and dumping them to disk
+- Wrap the above in a CLI tool
+
 ## Non-Goals
 
 - Tieing this project directly to concourse. The ecosystem is fairly large, so supporting
