@@ -8,3 +8,9 @@ Metrics/MethodLength:
 # than the default settings like
 Metrics/AbcSize:
   Max: 17
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+

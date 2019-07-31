@@ -15,7 +15,8 @@ module Rudder
       # - The concourse resource type
       #
       def initialize(name, type)
-        raise ArgumentError 'Type cannot be nil' if type.nil?
+        raise 'Name cannot be nil' if name.nil?
+        raise 'Type cannot be nil' if type.nil?
 
         # @source here just provides a handy hook when running instance_eval
         @source   = {}
