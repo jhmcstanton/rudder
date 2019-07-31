@@ -4,6 +4,10 @@ require 'set'
 
 module Rudder
   module DSL
+    #
+    # Concourse group. Logically groups together Concourse
+    # jobs in the UI.
+    #
     class Group
       attr_accessor :name
       attr_accessor :jobs

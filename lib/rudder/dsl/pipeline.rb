@@ -6,6 +6,10 @@ require_relative 'util'
 
 module Rudder
   module DSL
+    #
+    # Concourse Pipeline. Main entry of the DSL. Evaluates
+    # user defined pipelines.
+    #
     class Pipeline
       include Rudder::DSL::Util
       attr_accessor :resources

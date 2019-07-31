@@ -4,6 +4,9 @@ require_relative 'component'
 
 module Rudder
   module DSL
+    #
+    # Concourse Resource
+    #
     class Resource < Rudder::DSL::Component
       #
       # All resources require:

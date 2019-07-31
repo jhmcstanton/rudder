@@ -4,6 +4,9 @@ require_relative 'component'
 
 module Rudder
   module DSL
+    #
+    # Concourse job
+    #
     class Job < Rudder::DSL::Component
       def initialize(name)
         raise ArgumentError 'Name cannot be nil' if name.nil?

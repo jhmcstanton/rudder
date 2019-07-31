@@ -2,6 +2,9 @@
 
 module Rudder
   module DSL
+    #
+    # Utility helper methods for DSL components.
+    #
     module Util
       #
       # Recursively converts keys and values
