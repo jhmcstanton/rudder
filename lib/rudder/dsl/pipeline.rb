@@ -46,6 +46,8 @@ module Rudder
         h
       end
 
+      # TODO: Clean this up so these can be reenabled
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def method_missing(method, *args, **kwargs, &component_block)
         local_component = _get_local_component(method)
         if !@known_classes.include?(method) && !local_component
@@ -55,17 +57,18 @@ module Rudder
         # Look up a previously defined component from the pipeline
         return local_component if local_component && args.empty? && kwargs.empty? && !block_given?
 
-        raise "Unexpected keyword arguments for method #{m}" unless kwargs.empty?
+        raise "Unexpected keyword arguments for method #{method}" unless kwargs.empty?
 
         component_group = @known_classes[method][:pipeline_group]
         name = args[0]
-        raise "Overlapping component name: #{m}" if component_group.include? name
+        raise "Overlapping component name: #{method}" if component_group.include? name
 
         component = @known_classes[method][:clazz].new(*args)
 
         component.instance_exec self, &component_block if block_given?
         component_group[name] = component
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def respond_to_missing?(*_)
         true
@@ -127,12 +130,9 @@ module Rudder
         raise "Unable to load #{clazz}" unless @known_classes.keys.include? class_sym
         raise 'Name must not be nil' if name.nil?
 
-        dir = File.dirname(@file_path)
-        full_path = File.join(dir, component_path)
+        full_path = File.join(File.dirname(@file_path), component_path)
         component = @known_classes[class_sym][:clazz].new(name, *args)
-        File.open(full_path) do |f|
-          component.instance_eval f.read, full_path
-        end
+        components.instance_eval File.read(full_path), full_path
         @known_classes[class_sym][:pipeline_group][name] = component
         component
       end

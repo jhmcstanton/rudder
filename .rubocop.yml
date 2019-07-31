@@ -7,4 +7,4 @@ Metrics/MethodLength:
 # A few methods in pipeline.rb are a hair more complex
 # than the default settings like
 Metrics/AbcSize:
-  Max: 16
+  Max: 17
