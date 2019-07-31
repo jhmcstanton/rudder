@@ -8,7 +8,7 @@ RSpec.describe Rudder::DSL::Job do
 
   describe '.initialize' do
     it 'asserts the name is not nil' do
-      expect { described_class.new nil }.to raise_error(RuntimeError)
+      expect { described_class.new nil }.to raise_error(ArgumentError)
     end
   end
 

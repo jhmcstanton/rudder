@@ -13,7 +13,7 @@ module Rudder
       attr_accessor :jobs
 
       def initialize(name)
-        raise 'Name cannot be nil' if name.nil?
+        raise super.ArgumentError 'Name cannot be nil' if name.nil?
 
         @name = name
         @jobs = Set.new

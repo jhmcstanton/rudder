@@ -9,7 +9,7 @@ module Rudder
     #
     class Job < Rudder::DSL::Component
       def initialize(name)
-        raise 'Name cannot be nil' if name.nil?
+        raise super.ArgumentError 'Name cannot be nil' if name.nil?
 
         # @plan here is just a handy hook to access the
         # plan quickly inside instance_eval

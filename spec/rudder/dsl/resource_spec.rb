@@ -8,10 +8,10 @@ RSpec.describe Rudder::DSL::Resource do
 
   describe '.initialize' do
     it 'asserts the name is not nil' do
-      expect { described_class.new nil, 'test' }.to raise_error(RuntimeError)
+      expect { described_class.new nil, 'test' }.to raise_error(ArgumentError)
     end
     it 'asserts the type is not nil' do
-      expect { described_class.new 'test', nil }.to raise_error(RuntimeError)
+      expect { described_class.new 'test', nil }.to raise_error(ArgumentError)
     end
   end
 
