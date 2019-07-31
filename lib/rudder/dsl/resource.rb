@@ -12,14 +12,14 @@ module Rudder
       # All resources require:
       #
       # - Name of the resource. Must be unique across resources (not enforcable here).
-      # - The concourse resource type
+      # - The concourse resource type. Not verified until rendered to a Hash.
       #
-      def initialize(name, type)
+      def initialize(name, type = nil)
         raise super.ArgumentError 'Name cannot be nil' if name.nil?
-        raise super.ArgumentError 'Type cannot be nil' if type.nil?
 
         # @source here just provides a handy hook when running instance_eval
         @source   = {}
+        @type     = type
         @resource = { name: name, type: type, source: @source }
       end
 
@@ -28,6 +28,12 @@ module Rudder
       #
       def sub_path(child_path)
         File.join(@resource[:name].to_s, child_path)
+      end
+
+      def to_h
+        raise 'Type must be set for Concourse Resources' if @type.nil?
+
+        super.to_h.merge('type' => @type.to_s)
       end
 
       def _inner_hash
