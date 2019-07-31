@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 common = load('common.rb')
 
 resource :timer, :time do
@@ -5,7 +7,7 @@ resource :timer, :time do
 end
 
 # Add a timer to the first job
-get_timer_task = {get: :timer, trigger: true}
+get_timer_task = { get: :timer, trigger: true }
 start_plan = common.jobs.values.first.plan
 start_plan << get_timer_task
 
@@ -17,19 +19,19 @@ job 'An extra job that the wrapper pipeline requires' do
   date = {
     task: 'print the date', config: {
       platform: 'linux',
-      image_resource: {type: 'docker-image', source: {repository: 'busybox'}},
+      image_resource: { type: 'docker-image', source: { repository: 'busybox' } },
       run: {
-        path: 'date',
+        path: 'date'
       }
     }
   }
   @plan << date
 end
 
-job 'Goodbye from the Wrapper Pipeline' do |pipeline|
+job 'Goodbye from the Wrapper Pipeline' do |_pipeline|
   # Get the last job defined in the previous pipeline
   # so that we can depend on it in this job
-  last_job      = common.jobs.values.last
+  last_job = common.jobs.values.last
   last_job.plan.select { |task| task.key? :get }.each do |task|
     task = task.dup
     task[:passed] = [last_job.name]
@@ -38,7 +40,7 @@ job 'Goodbye from the Wrapper Pipeline' do |pipeline|
   task = {
     task: 'print_outer', config: {
       platform: 'linux',
-      image_resource: {type: 'docker-image', source: {repository: 'busybox'}},
+      image_resource: { type: 'docker-image', source: { repository: 'busybox' } },
       run: {
         path: 'echo',
         args: ['This is the outer pipeline. Good bye!']

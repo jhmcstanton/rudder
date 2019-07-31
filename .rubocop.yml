@@ -1,0 +1,10 @@
+Metrics/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 15
+
+# A few methods in pipeline.rb are a hair more complex
+# than the default settings like
+Metrics/AbcSize:
+  Max: 16

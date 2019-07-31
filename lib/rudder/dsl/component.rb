@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'util'
 
 module Rudder
@@ -9,7 +11,7 @@ module Rudder
       include Rudder::DSL::Util
 
       def _inner_hash
-        raise "Implement this in a subclass"
+        raise 'Implement this in a subclass'
       end
 
       def to_h
@@ -22,9 +24,7 @@ module Rudder
       #
       def method_missing(m, *args, **kwargs)
         # Accessing inner hash as attribute
-        if args.size == 0 && kwargs.size == 0
-          return _inner_hash[m]
-        end
+        return _inner_hash[m] if args.empty? && kwargs.empty?
 
         # Ruby treats dictionaries passed as the last argument as keyword dicts
         # (specifically when they use symbols as keys). Just smashing
@@ -34,11 +34,11 @@ module Rudder
 
         # If a single arg is given then assume this field is scalar,
         # otherwise assume its a list that needs all args
-        formatted_args = if args.size == 1 then args[0] else args end
+        formatted_args = args.size == 1 ? args[0] : args
         _inner_hash[m] = formatted_args
       end
 
-      def respond_to?(name, include_all=true)
+      def respond_to?(_name, _include_all = true)
         true
       end
     end

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Rudder
   module DSL
     module Util
-
       #
       # Recursively converts keys and values
       # of a hash to Yaml friendly values
@@ -16,11 +17,11 @@ module Rudder
 
       def _convert_h_val(v)
         case v
-        when Hash then
+        when Hash
           _deep_to_h(v)
-        when Array then
-          v.map{ |x| _convert_h_val(x) }
-        when Symbol then
+        when Array
+          v.map { |x| _convert_h_val(x) }
+        when Symbol
           v.to_s
         else
           if v.is_a? Rudder::DSL::Component

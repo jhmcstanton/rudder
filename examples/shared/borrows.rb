@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 common = load 'common.rb'
 
 resource :timer, :time do
@@ -5,7 +7,7 @@ resource :timer, :time do
 end
 
 # Borrow any git resources defined in common
-git_resources = common.resources.select{ |name, r| r.type == :git}
+git_resources = common.resources.select { |_name, r| r.type == :git }
 @resources.merge! git_resources
 
 job 'Just borrowing the git resource' do
@@ -17,7 +19,7 @@ job 'Just borrowing the git resource' do
   task = {
     task: 'ls all the gits', config: {
       platform: 'linux',
-      image_resource: {type: 'docker-image', source: {repository: 'busybox'}},
+      image_resource: { type: 'docker-image', source: { repository: 'busybox' } },
       run: {
         path: 'ls',
         args: git_names

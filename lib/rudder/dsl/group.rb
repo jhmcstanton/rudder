@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 module Rudder
@@ -7,7 +9,8 @@ module Rudder
       attr_accessor :jobs
 
       def initialize(name)
-        raise ArgumentError "Name cannot be nil" if name.nil?
+        raise ArgumentError 'Name cannot be nil' if name.nil?
+
         @name = name
         @jobs = Set.new
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 @parent_dir = File.dirname(__FILE__)
 def relative_files(p)
   Dir[File.join(@parent_dir, p)]

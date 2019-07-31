@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'component'
 
 module Rudder
   module DSL
     class Resource < Rudder::DSL::Component
-
       #
       # All resources require:
       #
@@ -11,7 +12,8 @@ module Rudder
       # - The concourse resource type
       #
       def initialize(name, type)
-        raise ArgumentError "Type cannot be nil"    if type.nil?
+        raise ArgumentError 'Type cannot be nil' if type.nil?
+
         # @source here just provides a handy hook when running instance_eval
         @source   = {}
         @resource = { name: name, type: type, source: @source }
