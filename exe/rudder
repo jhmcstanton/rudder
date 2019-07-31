@@ -1,4 +1,52 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optparse'
+require 'yaml'
+
 require 'rudder'
+
+name = File.basename __FILE__
+
+# TODO: Figure out a nice way to join these options with fly's without
+# tieing them together
+options = {}
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: #{name} [options]"
+
+  opts.on('-o', '--output YAML_PATH', 'YAML_PATH to write the pipeline config') do |p|
+    options[:output] = p
+  end
+
+  opts.on('-c', '--config RUDDER_CONFIG', 'Path to the RUDDER_CONFIG file to evaluate') do |c|
+    options[:rudder] = c
+  end
+
+  opts.on('-v', '--version', 'Show version') do
+    options[:version] = true
+  end
+end
+optparse.parse!
+
+if options[:version]
+  puts "Rudder Version: #{Rudder::VERSION}"
+  exit
+end
+
+unless options[:rudder]
+  puts 'Must provide RUDDER_CONFIG as option'
+  puts optparse.help
+  exit 1
+end
+
+pipeline = Rudder.compile(options[:rudder])
+
+output   = STDOUT
+if options[:output]
+  output = File.open(options[:output], 'w+')
+  at_exit do
+    output.close
+  end
+end
+
+Rudder.dump(pipeline, output)

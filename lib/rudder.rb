@@ -3,6 +3,7 @@
 require 'yaml'
 
 require_relative 'rudder/dsl.rb'
+require_relative 'rudder/version.rb'
 
 #
 # Methods to compile Rudder definitions
@@ -19,11 +20,12 @@ module Rudder
 
   #
   # Dumps a Rudder::DSL::Pipeline or Pipeline Hash
-  # to disk formatted as YAML
+  # to file handle
   #
-  def self.dump(pipeline, output_path)
-    File.open(output_path, 'w+') do |f|
-      f.puts(YAML.dump(pipeline.to_h))
-    end
+  def self.dump(pipeline, output)
+    output.puts(YAML.dump(pipeline.to_h))
+    # File.open(output_path, 'w+') do |f|
+    #   f.puts(YAML.dump(pipeline.to_h))
+    # end
   end
 end
