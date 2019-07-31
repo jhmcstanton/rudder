@@ -19,31 +19,28 @@ RSpec.describe Rudder::DSL::Resource do
       end
     end
 
-    it 'includes access to the source directly' do
-      resource.instance_exec self do |spec|
-        spec.expect(@source).to spec.eq({})
-      end
-    end
-
-    it 'includes access to the type directly' do
-      resource.instance_exec self do |spec|
-        spec.expect(@type).to spec.eq(:test_type)
-      end
-    end
-  end
-
-  describe '#to_h' do
-    it 'asserts that type is not nil' do
-      resource = described_class.new :test_resource
-      expect { resource.to_h }.to raise_error(RuntimeError)
-    end
-
-    context 'when the type of the resource is updated' do
-      it 'includes the resource type' do
+    context '#to_h' do
+      it 'asserts that type is not nil' do
+        resource = described_class.new :test_resource
         resource.instance_exec do
-          @type = :totally_new_type
+          source[:anything] = :whatever
         end
-        expect(resource.to_h).to eq('name' => 'test', 'type' => 'totally_new_type', 'source' => {})
+        expect { resource.to_h }.to raise_error(RuntimeError)
+      end
+
+      it 'asserts that the source is not empty' do
+        expect { resource.to_h }.to raise_error(RuntimeError)
+      end
+
+      it 'returns the YAML friendly resource hash' do
+        resource.instance_exec do
+          source[:anything] = :whatever
+        end
+        expect(resource.to_h).to eq(
+          'name' => 'test',
+          'type' => 'test_type',
+          'source' => { 'anything' => 'whatever' }
+        )
       end
     end
   end

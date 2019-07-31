@@ -17,10 +17,7 @@ module Rudder
       def initialize(name, type = nil)
         raise super.ArgumentError 'Name cannot be nil' if name.nil?
 
-        # @source here just provides a handy hook when running instance_eval
-        @source   = {}
-        @type     = type
-        @resource = { name: name, type: type, source: @source }
+        @resource = { name: name, type: type, source: {} }
       end
 
       #
@@ -31,9 +28,10 @@ module Rudder
       end
 
       def to_h
-        raise 'Type must be set for Concourse Resources' if @type.nil?
+        raise 'Type must be set for Concourse Resources'   if @resource[:type].nil?
+        raise 'Source must be set for Concourse Resources' if @resource[:source].empty?
 
-        super.to_h.merge('type' => @type.to_s)
+        super.to_h
       end
 
       def _inner_hash
