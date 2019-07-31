@@ -1,9 +1,29 @@
 # frozen_string_literal: true
 
-require 'rudder/version'
+require 'yaml'
+
+require_relative 'rudder/dsl.rb'
 
 #
-# This needs to be implemented
+# Methods to compile Rudder definitions
+# to Concourse Pipeline definitions
+#
 module Rudder
-  # Your code goes here...
+  #
+  # Compiles a Pipeline definition from disk
+  # to a Hash
+  #
+  def self.compile(path)
+    Rudder::DSL.eval_from_file(path).to_h
+  end
+
+  #
+  # Dumps a Rudder::DSL::Pipeline or Pipeline Hash
+  # to disk formatted as YAML
+  #
+  def self.dump(pipeline, output_path)
+    File.open(output_path, 'w+') do |f|
+      f.puts(YAML.dump(pipeline.to_h))
+    end
+  end
 end

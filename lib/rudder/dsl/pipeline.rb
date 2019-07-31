@@ -132,7 +132,7 @@ module Rudder
 
         full_path = File.join(File.dirname(@file_path), component_path)
         component = @known_classes[class_sym][:clazz].new(name, *args)
-        components.instance_eval File.read(full_path), full_path
+        component.instance_eval File.read(full_path), full_path
         @known_classes[class_sym][:pipeline_group][name] = component
         component
       end

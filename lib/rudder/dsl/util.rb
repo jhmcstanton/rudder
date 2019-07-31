@@ -28,7 +28,7 @@ module Rudder
           value.to_s
         else
           if value.respond_to? :to_h
-            value.to_h
+            _deep_to_h(value.to_h)
           else
             value
           end
