@@ -10,29 +10,27 @@ module Rudder
       # Recursively converts keys and values
       # of a hash to Yaml friendly values
       #
-      def _deep_to_h(h)
-        h.map do |k, v|
+      def _deep_to_h(hash)
+        hash.map do |k, v|
           k = _convert_h_val(k)
           v = _convert_h_val(v)
           [k, v]
         end.to_h
       end
 
-      def _convert_h_val(v)
-        case v
+      def _convert_h_val(value)
+        case value
         when Hash
-          _deep_to_h(v)
+          _deep_to_h(value)
         when Array
-          v.map { |x| _convert_h_val(x) }
+          value.map { |x| _convert_h_val(x) }
         when Symbol
-          v.to_s
+          value.to_s
         else
-          if v.is_a? Rudder::DSL::Component
-            v.to_h
-          elsif v.respond_to? :to_h
-            v.to_h
+          if value.respond_to? :to_h
+            value.to_h
           else
-            v
+            value
           end
         end
       end

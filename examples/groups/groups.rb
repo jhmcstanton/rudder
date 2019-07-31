@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 @parent_dir = File.dirname(__FILE__)
-def relative_files(p)
-  Dir[File.join(@parent_dir, p)]
+def relative_files(path)
+  Dir[File.join(@parent_dir, path)]
 end
 
 # Load all the resources

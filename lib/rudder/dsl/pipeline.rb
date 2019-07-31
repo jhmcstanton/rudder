@@ -1,4 +1,6 @@
- require_relative 'group'
+# frozen_string_literal: true
+
+require_relative 'group'
 require_relative 'job'
 require_relative 'resource'
 require_relative 'resource_type'
@@ -22,12 +24,14 @@ module Rudder
         @jobs           = jobs
         @groups         = groups
         @resource_types = resource_types
+        # rubocop:disable Layout/AlignHash, Layout/SpaceBeforeComma
         @known_classes  = {
           resource:      { clazz: Resource    , pipeline_group: @resources      },
           job:           { clazz: Job         , pipeline_group: @jobs           },
           group:         { clazz: Group       , pipeline_group: @groups         },
           resource_type: { clazz: ResourceType, pipeline_group: @resource_types }
         }
+        # rubocop:enable Layout/AlignHash, Layout/SpaceBeforeComma
         @pipelines = {}
         @file_path = file_path
       end
@@ -35,39 +39,39 @@ module Rudder
       def to_h
         h = {
           'resources' => _convert_h_val(@resources.values),
-          'jobs'      => _convert_h_val(@jobs.values)
+          'jobs' => _convert_h_val(@jobs.values)
         }
-        h['groups'] = _convert_h_val(@groups.values) if @groups.size > 0
-        if @resource_types.size > 0
-          h['resource_types'] = _convert_h_val(@resource_types.values)
-        end
+        h['groups'] = _convert_h_val(@groups.values) unless @groups.empty?
+        h['resource_types'] = _convert_h_val(@resource_types.values) unless @resource_types.empty?
         h
       end
 
-      def method_missing(m, *args, **kwargs, &component_block)
-        local_component = _get_local_component(m)
-        if !@known_classes.include?(m) && !local_component
-          return super.send(m, args, kwargs, component_block)
+      def method_missing(method, *args, **kwargs, &component_block)
+        local_component = _get_local_component(method)
+        if !@known_classes.include?(method) && !local_component
+          return super.send(method, args, kwargs, component_block)
         end
 
         # Look up a previously defined component from the pipeline
-        if local_component && args.empty? && kwargs.empty? && !block_given?
-          return local_component
-        end
+        return local_component if local_component && args.empty? && kwargs.empty? && !block_given?
 
-        raise "Unexpected keyword arguments for method #{m}" if kwargs.size > 0
-        component_group = @known_classes[m][:pipeline_group]
+        raise "Unexpected keyword arguments for method #{m}" unless kwargs.empty?
+
+        component_group = @known_classes[method][:pipeline_group]
         name = args[0]
         raise "Overlapping component name: #{m}" if component_group.include? name
-        component = @known_classes[m][:clazz].new(*args)
 
-        if block_given?
-          component.instance_exec self, &component_block
-        end
+        component = @known_classes[method][:clazz].new(*args)
+
+        component.instance_exec self, &component_block if block_given?
         component_group[name] = component
       end
 
-      def respond_to?(name, include_all=true)
+      def respond_to_missing?(*_)
+        true
+      end
+
+      def respond_to?(name, _include_all = true)
         @known_classes.key? name
       end
 
@@ -79,6 +83,7 @@ module Rudder
         if @file_path.nil?
           raise 'File path must be provided at Pipeline initialization or eval call'
         end
+
         File.open(@file_path) do |f|
           instance_eval f.read, @file_path
         end
@@ -105,7 +110,8 @@ module Rudder
           full_path = File.join(dir, other_pipeline_path)
           pipeline = Rudder::DSL::Pipeline.new(
             full_path, resources: resources, resource_types: resource_types,
-            jobs: jobs, groups: groups).eval
+                       jobs: jobs, groups: groups
+          ).eval
           @pipelines[other_pipeline_path] = pipeline
           pipeline
         end
@@ -119,7 +125,7 @@ module Rudder
       #
       def load_component(component_path, class_sym, name, *args)
         raise "Unable to load #{clazz}" unless @known_classes.keys.include? class_sym
-        raise "Name must not be nil" if name.nil?
+        raise 'Name must not be nil' if name.nil?
 
         dir = File.dirname(@file_path)
         full_path = File.join(dir, component_path)
@@ -136,10 +142,10 @@ module Rudder
       # TODO: Make this not bad
       # Oh well..
       # TODO: This may be returning a non-nil/non-falsey type that causes some issues
-      def _get_local_component(p)
-        p = p.to_sym
+      def _get_local_component(component)
+        component = component.to_sym
         locals = @known_classes.values.map do |m|
-          m[:pipeline_group][p]
+          m[:pipeline_group][component]
         end.compact
         # TODO: Add a logger here..
         puts "Found multiple bindings for: #{p}. Getting first found" unless locals.size <= 1

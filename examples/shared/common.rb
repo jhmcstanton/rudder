@@ -18,14 +18,14 @@ print_hello = {
   }
 }
 
-def mk_name(i)
-  "Yo #{i}"
+def mk_name(job_index)
+  "Yo #{job_index}"
 end
 
 num_jobs = 3
 (1..num_jobs).each do |i|
   name = mk_name i
-  job "Yo #{i}" do |p|
+  job name do |p|
     get = get_rudder.dup
     get[:passed] = [p.mk_name(i - 1)] if i > 1
     @plan << get
