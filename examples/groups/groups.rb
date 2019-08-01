@@ -10,7 +10,7 @@ relative_files('resources/*').each do |path|
   # Pipline#load includes always loads files relative to where itself, so
   # we need to remove the parent directory from this path
   res = load path.sub(@parent_dir, '')
-  @resources.merge! res.resources
+  resources.merge! res.resources
 end
 
 # Load all the jobs and stick them in groups by directory

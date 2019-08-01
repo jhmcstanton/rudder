@@ -3,12 +3,12 @@
 common = load 'common.rb'
 
 resource :timer, :time do
-  @source[:interval] = '30m'
+  source[:interval] = '30m'
 end
 
 # Borrow any git resources defined in common
 git_resources = common.resources.select { |_name, r| r.type == :git }
-@resources.merge! git_resources
+resources.merge! git_resources
 
 job 'Just borrowing the git resource' do
   git_names = git_resources.keys
@@ -26,5 +26,5 @@ job 'Just borrowing the git resource' do
       }
     }
   }
-  @plan << task
+  plan << task
 end

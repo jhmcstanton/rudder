@@ -12,4 +12,4 @@ task = {
     }
   }
 }
-@plan << task
+plan << task

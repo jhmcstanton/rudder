@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-git_resources = @resources.values.select { |r| r.type == :git }
+git_resources = resources.values.select { |r| r.type == :git }
 
 git_resources.each do |r|
   job "git log #{r.name}" do
-    @plan << { get: r.name, trigger: true }
+    plan << { get: r.name, trigger: true }
     task = {
       task: "git log #{r.name}", config: {
         inputs: [name: r.name],
@@ -17,6 +17,6 @@ git_resources.each do |r|
         }
       }
     }
-    @plan << task
+    plan << task
   end
 end

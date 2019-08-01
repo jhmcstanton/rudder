@@ -2,8 +2,8 @@
 
 resource :rudder_git, :git do
   # The source field dictionary is available to be directly interacted with
-  @source[:uri]    = 'https://github.com/jhmcstanton/rudder.git'
-  @source[:branch] = 'master'
+  source[:uri]    = 'https://github.com/jhmcstanton/rudder.git'
+  source[:branch] = 'master'
 end
 
 resource :timer, :time do
@@ -17,8 +17,8 @@ end
 
 job :hello_world do
   # Plan array can be hooked into directly
-  @plan << { get: :timer, trigger: true, passed: [:getter] }
-  @plan << { task: 'print_hello', config: {
+  plan << { get: :timer, trigger: true, passed: [:getter] }
+  plan << { task: 'print_hello', config: {
     platform: 'linux',
     image_resource: { type: 'docker-image', source: { repository: 'busybox' } },
     run: {

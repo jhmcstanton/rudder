@@ -19,9 +19,18 @@ RSpec.describe Rudder::DSL::Job do
       end
     end
 
-    it 'includes access to the plan directly' do
-      job.instance_exec self do |spec|
-        spec.expect(@plan).to spec.eq([])
+    context '#to_h' do
+      it 'asserts that the job plan is not empty' do
+        expect { job.to_h }.to raise_error(RuntimeError)
+      end
+
+      it 'returns the YAML friendly hash' do
+        job.instance_exec do
+          plan << :job1
+          plan << :job2
+        end
+
+        expect(job.to_h).to eq('name' => 'test', 'plan' => %w[job1 job2])
       end
     end
   end

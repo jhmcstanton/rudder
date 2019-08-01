@@ -3,7 +3,7 @@
 common = load('common.rb')
 
 resource :timer, :time do
-  @source[:interval] = '5m'
+  source[:interval] = '5m'
 end
 
 # Add a timer to the first job
@@ -11,11 +11,11 @@ get_timer_task = { get: :timer, trigger: true }
 start_plan = common.jobs.values.first.plan
 start_plan << get_timer_task
 
-@resources.merge! common.resources
-@jobs     .merge! common.jobs
+resources.merge! common.resources
+jobs     .merge! common.jobs
 
 job 'An extra job that the wrapper pipeline requires' do
-  @plan << get_timer_task
+  plan << get_timer_task
   date = {
     task: 'print the date', config: {
       platform: 'linux',
@@ -25,7 +25,7 @@ job 'An extra job that the wrapper pipeline requires' do
       }
     }
   }
-  @plan << date
+  plan << date
 end
 
 job 'Goodbye from the Wrapper Pipeline' do |_pipeline|
@@ -35,7 +35,7 @@ job 'Goodbye from the Wrapper Pipeline' do |_pipeline|
   last_job.plan.select { |task| task.key? :get }.each do |task|
     task = task.dup
     task[:passed] = [last_job.name]
-    @plan << task
+    plan << task
   end
   task = {
     task: 'print_outer', config: {
@@ -47,5 +47,5 @@ job 'Goodbye from the Wrapper Pipeline' do |_pipeline|
       }
     }
   }
-  @plan << task
+  plan << task
 end

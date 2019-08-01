@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 resource :rudder_git, :git do
-  @source[:uri]    = 'https://github.com/jhmcstanton/rudder.git'
-  @source[:branch] = 'master'
+  source[:uri]    = 'https://github.com/jhmcstanton/rudder.git'
+  source[:branch] = 'master'
 end
 
 get_rudder = { get: :rudder_git, trigger: true }
@@ -28,7 +28,7 @@ num_jobs = 3
   job name do |p|
     get = get_rudder.dup
     get[:passed] = [p.mk_name(i - 1)] if i > 1
-    @plan << get
-    @plan << print_hello
+    plan << get
+    plan << print_hello
   end
 end
