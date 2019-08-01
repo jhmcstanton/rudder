@@ -8,6 +8,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 YARD::Rake::YardocTask.new do |t|
   t.files = ['lib/**/*.rb', 'exe/rudder', 'README.md', 'LICENCE']
+  t.options = ['-o', 'docs/']
 end
 
 task default: :spec

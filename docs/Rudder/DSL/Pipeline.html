@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Rudder::DSL::Pipeline
+  
+    &mdash; Documentation by YARD 0.9.20
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "Rudder::DSL::Pipeline";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (P)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Rudder.html" title="Rudder (module)">Rudder</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../DSL.html" title="Rudder::DSL (module)">DSL</a></span></span>
+     &raquo; 
+    <span class="title">Pipeline</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Rudder::DSL::Pipeline
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Rudder::DSL::Pipeline</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Util.html" title="Rudder::DSL::Util (module)">Util</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/rudder/dsl/pipeline.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Concourse Pipeline. Main entry of the DSL. Evaluates user defined
+pipelines.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#groups-instance_method" title="#groups (instance method)">#<strong>groups</strong>  &#x21d2; Hash&lt;(String, Symbol), Rudder::DSL::Group&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of names to <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Group</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#jobs-instance_method" title="#jobs (instance method)">#<strong>jobs</strong>  &#x21d2; Hash&lt;(String, Symbol), Rudder::DSL::Job&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of names to <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Job</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resource_types-instance_method" title="#resource_types (instance method)">#<strong>resource_types</strong>  &#x21d2; Hash&lt;(String, Symbol), Rudder::DSL::ResourceType&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of names to <span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">ResourceType</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resources-instance_method" title="#resources (instance method)">#<strong>resources</strong>  &#x21d2; Hash&lt;(String, Symbol), Rudder::DSL::Resource&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of names to <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_get_local_component-instance_method" title="#_get_local_component (instance method)">#<strong>_get_local_component</strong>(component)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Yikes! Seems like a bad idea - if someone uses the same name twice (say, 1
+resource and 1 job), then this will return one pretty much at random.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eval-instance_method" title="#eval (instance method)">#<strong>eval</strong>(file_path = nil)  &#x21d2; Rudder::DSL::Pipeline </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Evaluates the given file path.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(file_path = nil, resources: {}, jobs: {}, groups: {}, resource_types: {})  &#x21d2; Pipeline </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>All pipelines require: - Jobs - Resources.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>(other_pipeline_path, resources: {}, resource_types: {}, jobs: {}, groups: {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Given a path relative to this pipeline, loads another pipeline and returns
+it.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load_component-instance_method" title="#load_component (instance method)">#<strong>load_component</strong>(component_path, class_sym, name, *args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Given a path to a component, its class, and any args required to construct
+it, creates a new component.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_missing-instance_method" title="#method_missing (instance method)">#<strong>method_missing</strong>(method, *args, **kwargs, &amp;component_block)  &#x21d2; Rudder::DSL::Component<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Populates this <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span> with components and optionally
+fetches defined components.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#respond_to%3F-instance_method" title="#respond_to? (instance method)">#<strong>respond_to?</strong>(name, _include_all = true)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#respond_to_missing%3F-instance_method" title="#respond_to_missing? (instance method)">#<strong>respond_to_missing?</strong>(*_)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p><span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span>&#39;s respond to missing.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_h-instance_method" title="#to_h (instance method)">#<strong>to_h</strong>  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Renders all of this pipeline&#39;s components to their <code>Hash</code>
+representations.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Util.html" title="Rudder::DSL::Util (module)">Util</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Util.html#_convert_h_val-instance_method" title="Rudder::DSL::Util#_convert_h_val (method)">#_convert_h_val</a></span>, <span class='object_link'><a href="Util.html#_deep_to_h-instance_method" title="Rudder::DSL::Util#_deep_to_h (method)">#_deep_to_h</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(file_path = nil, resources: {}, jobs: {}, groups: {}, resource_types: {})  &#x21d2; <tt><span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>All pipelines require:</p>
+<ul><li>
+<p>Jobs</p>
+</li><li>
+<p>Resources</p>
+</li></ul>
+
+<p>Concourse Pipelines may optionally provide:</p>
+<ul><li>
+<p>Resource Types</p>
+</li><li>
+<p>Groups</p>
+</li></ul>
+
+<p><code>Rudder</code> Pipelines may optionally include a
+<code>file_path</code>. This is required when loading resources from
+neighboring files.</p>
+
+<p>All pipeline requirements are only needed at the Pipeline render time
+(after evaluation), and need not be specified for initialization.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>file_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to this <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> definition.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>resources</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Rudder::DSL::Resource</a></span>]
+map of <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span> names to their definitions.</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>esources [Hash&lt;(String, Symbol), Rudder::DSL::Resource] map of Resource
+names to their definitions.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>jobs</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Rudder::DSL::Job</a></span>]
+map of <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Job</a></span> names to their definitions.</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>obs      [Hash&lt;(String, Symbol), Rudder::DSL::Job] map of Job names to
+their definitions.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>groups</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Rudder::DSL::Group</a></span>]
+map of <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Group</a></span> names to their definitions.</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>roups    [Hash&lt;(String, Symbol), Rudder::DSL::Group] map of Group names
+to their definitions.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>resources_types</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">Rudder::DSL::ResourceType</a></span>]
+map of <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span> Type names to their definitions.</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>esources_types [Hash&lt;(String, Symbol), Rudder::DSL::ResourceType] map of
+Resource Type names to their definitions.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>resources:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>jobs:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+               <span class='label'>groups:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>resource_types:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@resources</span>      <span class='op'>=</span> <span class='id identifier rubyid_resources'>resources</span>
+  <span class='ivar'>@jobs</span>           <span class='op'>=</span> <span class='id identifier rubyid_jobs'>jobs</span>
+  <span class='ivar'>@groups</span>         <span class='op'>=</span> <span class='id identifier rubyid_groups'>groups</span>
+  <span class='ivar'>@resource_types</span> <span class='op'>=</span> <span class='id identifier rubyid_resource_types'>resource_types</span>
+  <span class='comment'># rubocop:disable Layout/AlignHash, Layout/SpaceBeforeComma
+</span>  <span class='ivar'>@known_classes</span>  <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>resource:</span>      <span class='lbrace'>{</span> <span class='label'>clazz:</span> <span class='const'><span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span></span>    <span class='comma'>,</span> <span class='label'>pipeline_group:</span> <span class='ivar'>@resources</span>      <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>job:</span>           <span class='lbrace'>{</span> <span class='label'>clazz:</span> <span class='const'><span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Job</a></span></span>         <span class='comma'>,</span> <span class='label'>pipeline_group:</span> <span class='ivar'>@jobs</span>           <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>group:</span>         <span class='lbrace'>{</span> <span class='label'>clazz:</span> <span class='const'><span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Group</a></span></span>       <span class='comma'>,</span> <span class='label'>pipeline_group:</span> <span class='ivar'>@groups</span>         <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>resource_type:</span> <span class='lbrace'>{</span> <span class='label'>clazz:</span> <span class='const'><span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">ResourceType</a></span></span><span class='comma'>,</span> <span class='label'>pipeline_group:</span> <span class='ivar'>@resource_types</span> <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span>
+  <span class='comment'># rubocop:enable Layout/AlignHash, Layout/SpaceBeforeComma
+</span>  <span class='ivar'>@pipelines</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@file_path</span> <span class='op'>=</span> <span class='id identifier rubyid_file_path'>file_path</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice this">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+  </p>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="method_missing-instance_method">
+  
+    #<strong>method_missing</strong>(method, *args, **kwargs, &amp;component_block)  &#x21d2; <tt><span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Rudder::DSL::Component</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Populates this <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> with components and optionally
+fetches defined components.</p>
+
+<p>Fetching</p>
+<hr>
+
+<p>When <code>method</code> is called with no arguments it is treated as a
+<span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> getter method. <code>method</code> is translated to
+the name of a <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span> and the <code>Component</code> is
+returned if defined, otherwise nil is returned.</p>
+<hr>
+
+<p>Setting</p>
+<hr>
+
+<p>When <code>method</code> is passed <em>any</em> arguments (positional,
+placement, or block) then <code>method</code> is treated as a setter.</p>
+
+<p>When setting, <code>method</code> must be the name of a known
+<span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span>. The first argument is a required <em>name</em>
+for the component. <em>All</em> arguments and keyword arguments are then
+delegated to the <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span>&#39;s specific initializer.</p>
+
+<p>Finally, when a block is provided it is evaluated within the context of the
+newly constructed <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span> with full priveleges to operate
+on it.</p>
+<hr>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Rudder::DSL::Component</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>when <code>method</code> is called with no arguments, returns the
+<span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span> with name <code>method</code>, if any exists.
+Otherwise returns <code>nil</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>when attempting to define an unknown <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 127</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kwargs'>kwargs</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_component_block'>component_block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_local_component'>local_component</span> <span class='op'>=</span> <span class='id identifier rubyid__get_local_component'>_get_local_component</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@known_classes</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_local_component'>local_component</span>
+    <span class='kw'>return</span> <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_kwargs'>kwargs</span><span class='comma'>,</span> <span class='id identifier rubyid_component_block'>component_block</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Look up a previously defined component from the pipeline
+</span>  <span class='kw'>return</span> <span class='id identifier rubyid_local_component'>local_component</span> <span class='kw'>if</span> <span class='id identifier rubyid_local_component'>local_component</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_kwargs'>kwargs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unexpected keyword arguments for method </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_kwargs'>kwargs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_component_group'>component_group</span> <span class='op'>=</span> <span class='ivar'>@known_classes</span><span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pipeline_group</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Overlapping component name: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_component_group'>component_group</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_name'>name</span>
+
+  <span class='id identifier rubyid_component'>component</span> <span class='op'>=</span> <span class='ivar'>@known_classes</span><span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:clazz</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_instance_exec'>instance_exec</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_component_block'>component_block</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+  <span class='id identifier rubyid_component_group'>component_group</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="groups=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="groups-instance_method">
+  
+    #<strong>groups</strong>  &#x21d2; <tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Rudder::DSL::Group</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hash of names to <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Group</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Rudder::DSL::Group</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_groups'>groups</span>
+  <span class='ivar'>@groups</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="jobs=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="jobs-instance_method">
+  
+    #<strong>jobs</strong>  &#x21d2; <tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Rudder::DSL::Job</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hash of names to <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Job</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Rudder::DSL::Job</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_jobs'>jobs</span>
+  <span class='ivar'>@jobs</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="resource_types=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="resource_types-instance_method">
+  
+    #<strong>resource_types</strong>  &#x21d2; <tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">Rudder::DSL::ResourceType</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hash of names to <span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">ResourceType</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">Rudder::DSL::ResourceType</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_resource_types'>resource_types</span>
+  <span class='ivar'>@resource_types</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="resources=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="resources-instance_method">
+  
+    #<strong>resources</strong>  &#x21d2; <tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Rudder::DSL::Resource</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hash of names to <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Rudder::DSL::Resource</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_resources'>resources</span>
+  <span class='ivar'>@resources</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="_get_local_component-instance_method">
+  
+    #<strong>_get_local_component</strong>(component)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Yikes! Seems like a bad idea - if someone uses the same name twice (say, 1
+resource and 1 job), then this will return one pretty much at random. TODO:
+Make this not bad Oh well.. TODO: This may be returning a
+non-nil/non-falsey type that causes some issues</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+255
+256
+257
+258
+259
+260
+261
+262
+263</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 255</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid__get_local_component'>_get_local_component</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_component'>component</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='id identifier rubyid_locals'>locals</span> <span class='op'>=</span> <span class='ivar'>@known_classes</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span>
+    <span class='id identifier rubyid_m'>m</span><span class='lbracket'>[</span><span class='symbol'>:pipeline_group</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='comment'># TODO: Add a logger here..
+</span>  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Found multiple bindings for: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='embexpr_end'>}</span><span class='tstring_content'>. Getting first found</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_locals'>locals</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;=</span> <span class='int'>1</span>
+  <span class='id identifier rubyid_locals'>locals</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eval-instance_method">
+  
+    #<strong>eval</strong>(file_path = nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Evaluates the given file path. If file_path nil, defaults to the one
+provided at construction time If both are nil, raises an exception</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>file_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> definition to evaluate. Uses the current
+<code>file_path</code> if <code>nil</code></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the evaluated pipeline</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if <code>file_path</code> and #file_path are both
+<code>nil</code></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 171</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_eval'>eval</span><span class='lparen'>(</span><span class='id identifier rubyid_file_path'>file_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@file_path</span> <span class='op'>=</span> <span class='id identifier rubyid_file_path'>file_path</span> <span class='op'>||</span> <span class='ivar'>@file_path</span>
+  <span class='kw'>if</span> <span class='ivar'>@file_path</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>File path must be provided at Pipeline initialization or eval call</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='ivar'>@file_path</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
+    <span class='id identifier rubyid_instance_eval'>instance_eval</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='comma'>,</span> <span class='ivar'>@file_path</span>
+  <span class='kw'>end</span>
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load-instance_method">
+  
+    #<strong>load</strong>(other_pipeline_path, resources: {}, resource_types: {}, jobs: {}, groups: {})  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Given a path relative to this pipeline, loads another pipeline and returns
+it</p>
+
+<p>Note that this includes <em>nothing</em> from the relative pipeline in this
+one, instead just returning the pipeline to be manipulated</p>
+
+<p>May also optionally provides hashes for</p>
+<ul><li>
+<p>resources</p>
+</li><li>
+<p>resource_types</p>
+</li><li>
+<p>jobs</p>
+</li><li>
+<p>groups</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>other_pipeline_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>relative path to <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> definition to load and evaluate.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>resources</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Resource.html" title="Rudder::DSL::Resource (class)">Rudder::DSL::Resource</a></span>]
+<span class='object_link'><a href="#resources-instance_method" title="Rudder::DSL::Pipeline#resources (method)">resources</a></span> to <span class='object_link'><a href="#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">initialize</a></span> the other {<span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span>} with</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>esources [Hash&lt;(String, Symbol), Rudder::DSL::Resource] resources to
+initialize the other <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> with</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>resources_types</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="ResourceType.html" title="Rudder::DSL::ResourceType (class)">Rudder::DSL::ResourceType</a></span>]
+resources_types to <span class='object_link'><a href="#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">initialize</a></span> the other {<span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span>} with</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>esources_types [Hash&lt;(String, Symbol), Rudder::DSL::ResourceType]
+resources_types to initialize the other <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> with</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>jobs</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Job.html" title="Rudder::DSL::Job (class)">Rudder::DSL::Job</a></span>]
+<span class='object_link'><a href="#jobs-instance_method" title="Rudder::DSL::Pipeline#jobs (method)">jobs</a></span> to <span class='object_link'><a href="#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">initialize</a></span> the other {<span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span>} with</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>obs [Hash&lt;(String, Symbol), Rudder::DSL::Job] jobs to initialize the
+other <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> with</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>groups</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;(String, Symbol), <span class='object_link'><a href="Group.html" title="Rudder::DSL::Group (class)">Rudder::DSL::Group</a></span>]
+<span class='object_link'><a href="#groups-instance_method" title="Rudder::DSL::Pipeline#groups (method)">groups</a></span> to <span class='object_link'><a href="#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">initialize</a></span> the other {<span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span>} with</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>roups [Hash&lt;(String, Symbol), Rudder::DSL::Group] groups to initialize
+the other <span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span> with</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 206</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_other_pipeline_path'>other_pipeline_path</span><span class='comma'>,</span> <span class='label'>resources:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>resource_types:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+         <span class='label'>jobs:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>groups:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='ivar'>@pipelines</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_other_pipeline_path'>other_pipeline_path</span>
+    <span class='ivar'>@pipelines</span><span class='lbracket'>[</span><span class='id identifier rubyid_other_pipeline_path'>other_pipeline_path</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='ivar'>@file_path</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_full_path'>full_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_dir'>dir</span><span class='comma'>,</span> <span class='id identifier rubyid_other_pipeline_path'>other_pipeline_path</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_pipeline'>pipeline</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Rudder.html" title="Rudder (module)">Rudder</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../DSL.html" title="Rudder::DSL (module)">DSL</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_full_path'>full_path</span><span class='comma'>,</span> <span class='label'>resources:</span> <span class='id identifier rubyid_resources'>resources</span><span class='comma'>,</span> <span class='label'>resource_types:</span> <span class='id identifier rubyid_resource_types'>resource_types</span><span class='comma'>,</span>
+                 <span class='label'>jobs:</span> <span class='id identifier rubyid_jobs'>jobs</span><span class='comma'>,</span> <span class='label'>groups:</span> <span class='id identifier rubyid_groups'>groups</span>
+    <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_eval'><span class='object_link'><a href="#eval-instance_method" title="Rudder::DSL::Pipeline#eval (method)">eval</a></span></span>
+    <span class='ivar'>@pipelines</span><span class='lbracket'>[</span><span class='id identifier rubyid_other_pipeline_path'>other_pipeline_path</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_pipeline'>pipeline</span>
+    <span class='id identifier rubyid_pipeline'>pipeline</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load_component-instance_method">
+  
+    #<strong>load_component</strong>(component_path, class_sym, name, *args)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Given a path to a component, its class, and any args required to construct
+it, creates a new component</p>
+
+<p>Note that this automatically includes the component into this pipeline</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>component_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path, relative to this pipeline, containing a <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span> to
+load</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>class_sym</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>symbol of a <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span>. May be one of: (<code>:job</code>,
+<code>:resource</code>, <code>:resource_type</code>, <code>:group</code>)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name to use for the loaded <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span>. Must not be
+<code>nil</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>*args</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>any additional arguments to pass to the <span class='object_link'><a href="Component.html" title="Rudder::DSL::Component (class)">Component</a></span>
+constructor.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>RuntimeError if <code>name</code> is <code>nil</code> or an uknown
+<code>class_sym</code> is provided.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 239</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_load_component'>load_component</span><span class='lparen'>(</span><span class='id identifier rubyid_component_path'>component_path</span><span class='comma'>,</span> <span class='id identifier rubyid_class_sym'>class_sym</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unable to load </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_class_sym'>class_sym</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@known_classes</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_class_sym'>class_sym</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Name must not be nil</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_full_path'>full_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='ivar'>@file_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_component_path'>component_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_component'>component</span> <span class='op'>=</span> <span class='ivar'>@known_classes</span><span class='lbracket'>[</span><span class='id identifier rubyid_class_sym'>class_sym</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:clazz</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_instance_eval'>instance_eval</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_full_path'>full_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_full_path'>full_path</span>
+  <span class='ivar'>@known_classes</span><span class='lbracket'>[</span><span class='id identifier rubyid_class_sym'>class_sym</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pipeline_group</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span>
+  <span class='id identifier rubyid_component'>component</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="respond_to?-instance_method">
+  
+    #<strong>respond_to?</strong>(name, _include_all = true)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+157
+158
+159</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 157</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid__include_all'>_include_all</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@known_classes</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_name'>name</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="respond_to_missing?-instance_method">
+  
+    #<strong>respond_to_missing?</strong>(*_)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p><span class='object_link'><a href="" title="Rudder::DSL::Pipeline (class)">Rudder::DSL::Pipeline</a></span>&#39;s respond to missing</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>true</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+153
+154
+155</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 153</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid__'>_</span><span class='rparen'>)</span>
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_h-instance_method">
+  
+    #<strong>to_h</strong>  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Renders all of this pipeline&#39;s components to their <code>Hash</code>
+representations.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>YAML friendly <code>Hash</code> representation of this
+<code>Pipeline</code> if either <code>groups</code> or
+<code>resource_types</code> is empty they will not be included in the
+rendering at all.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/pipeline.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
+  <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>resources</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__convert_h_val'>_convert_h_val</span><span class='lparen'>(</span><span class='ivar'>@resources</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>jobs</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__convert_h_val'>_convert_h_val</span><span class='lparen'>(</span><span class='ivar'>@jobs</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>groups</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid__convert_h_val'>_convert_h_val</span><span class='lparen'>(</span><span class='ivar'>@groups</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='ivar'>@groups</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>resource_types</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid__convert_h_val'>_convert_h_val</span><span class='lparen'>(</span><span class='ivar'>@resource_types</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='ivar'>@resource_types</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_h'>h</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Aug  1 00:27:07 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.20 (ruby-2.5.1).
+</div>
+
+    </div>
+  </body>
+</html>
