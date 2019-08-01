@@ -11,7 +11,7 @@ examples = [
   'shared/borrows.rb',
   'includes/includes.rb',
   'groups/groups.rb'
-].map{ |p| File.join('examples', p)}
+].map { |p| File.join('examples', p) }
 
 ##
 # Integration tests that simply assert
@@ -24,7 +24,7 @@ RSpec.describe Rudder do
       it 'sets without error in Concourse' do
         pipeline = Rudder.compile example
         example_name = File.basename example
-        output = Tempfile.new(example_name, tmpdir = '.')
+        output = Tempfile.new(example_name)
         puts "output_path: #{output.path}"
         Rudder.dump(pipeline, output)
         output_path = output.path
@@ -32,9 +32,7 @@ RSpec.describe Rudder do
 
         pipeline_name = example_name.split('.').first
         success = system "fly -t local sp -p #{pipeline_name} -c #{output_path} -n"
-        unless success
-          raise 'Failed to fly pipeline'
-        end
+        raise 'Failed to fly pipeline' unless success
       end
     end
   end

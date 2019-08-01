@@ -19,7 +19,7 @@ job 'Just borrowing the git resource' do
   task = {
     task: 'ls all the gits', config: {
       platform: 'linux',
-      inputs: [ name: :rudder_git],
+      inputs: [name: :rudder_git],
       image_resource: { type: 'docker-image', source: { repository: 'busybox' } },
       run: {
         path: 'ls',
