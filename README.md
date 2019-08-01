@@ -29,7 +29,6 @@ the contents or borrowing only specific pieces.
 TODOs:
 
 - Add more unit tests
-- Add integration tests, probably using the examples.
 - Add more docs
 
 ## Non-Goals
@@ -64,7 +63,8 @@ Or install it yourself as:
 ## Usage
 
 ### DSL
-TODO: Fill this in
+See the [DSL class documentation](https://jhmcstanton.github.io/rudder/Rudder/DSL.html)
+for specific details. 
 
 ### Compiling
 

@@ -8,6 +8,36 @@ module Rudder
     # Concourse group. Logically groups together Concourse
     # jobs in the UI.
     #
+    # DSL Usage:
+    # -------------------------------------------------------
+    # {Rudder::DSL::Group}'s are the simplest element of any
+    # Concourse Pipeline, defined by only a name and a non-empty
+    # list of jobs.
+    #
+    #
+    # @example
+    #   # Name's are typically set during initialization
+    #   group :my_awesome_group do # => Name is set to :my_awesome_group
+    #
+    #   # but the name may be changed post construction as well
+    #   group :not_the_best_name do # => Name initialized to :not_the_best_name
+    #     name :the_best_name
+    #   end # => but is set to :the_best_name after the block is executed
+    #
+    # @example
+    #   # Job's are always set post construction. They can be added
+    #   # individually:
+    #   group :my_awesome_group do
+    #     job :some_prereq
+    #     job :my_awesome_work
+    #   end # => group.jobs = [:some_prereq, :my_awesome_work]
+    #
+    #   # and they can be added in collections
+    #   group :my_awesome_group do
+    #     jobs :a_job, :and_another, :and_one_more
+    #   end # => group.jobs = [:a_job, :and_another, :and_one_more]
+    #
+    #
     class Group
       ##
       # All {Rudder::DSL::Group}'s require

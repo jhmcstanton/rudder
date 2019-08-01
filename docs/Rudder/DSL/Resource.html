@@ -104,13 +104,48 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Concourse Resource</p>
+<p>Concourse Resource, defines inputs and outputs of a Concourse Job</p>
+
+<p>DSL Usage:</p>
+<hr>
+
+<p><span class='object_link'><a href="" title="Rudder::DSL::Resource (class)">Resource</a></span> are defined by a <code>name</code>,
+<code>type</code>, and <code>source</code>.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='comment'># Name&#39;s are set during initialization, and may not be nil.
+</span><span class='id identifier rubyid_resource'>resource</span> <span class='symbol'>:awesome_resource</span> <span class='comment'># =&gt; resource.name = :awesome_resource
+</span>
+<span class='id identifier rubyid_resource'>resource</span> <span class='kw'>nil</span> <span class='comment'># =&gt; Raises ArgumentError</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='comment'># Type&#39;s are typically set during initialization
+</span><span class='id identifier rubyid_resource'>resource</span> <span class='symbol'>:awesome_resource</span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='comment'># =&gt; resource.type = :git
+</span>
+<span class='comment'># but it may be set in the +resource+ block
+</span><span class='id identifier rubyid_resource'>resource</span> <span class='symbol'>:awesome_resource</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_type'>type</span> <span class='symbol'>:git</span>
+<span class='kw'>end</span> <span class='comment'># =&gt; resource.type = :git
+</span><span class='comment'># this is useful when definining +Resources+ to be included in multiple pipelines,
+</span><span class='comment'># where the type does not change but the name may</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='comment'># Source is set after construction
+</span><span class='id identifier rubyid_resource'>resource</span> <span class='symbol'>:awesome_resource</span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_source'>source</span><span class='lbracket'>[</span><span class='symbol'>:uri</span><span class='rbracket'>]</span>    <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://github.com/jhmcstanton/rudder.git</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_source'>source</span><span class='lbracket'>[</span><span class='symbol'>:branch</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>master</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></code></pre>
+    
+  </div>
+
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
@@ -326,14 +361,14 @@ here).</p>
       <pre class="lines">
 
 
-21
-22
-23
-24
-25</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='kw'>super</span><span class='period'>.</span><span class='const'>ArgumentError</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Name cannot be nil</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -377,12 +412,12 @@ here).</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid__inner_hash'>_inner_hash</span>
   <span class='ivar'>@resource</span>
@@ -437,12 +472,12 @@ without knowing it&#39;s underlying concourse name.</p>
       <pre class="lines">
 
 
-33
-34
-35</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sub_path'>sub_path</span><span class='lparen'>(</span><span class='id identifier rubyid_child_path'>child_path</span><span class='rparen'>)</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='ivar'>@resource</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_child_path'>child_path</span><span class='rparen'>)</span>
@@ -514,15 +549,15 @@ without knowing it&#39;s underlying concourse name.</p>
       <pre class="lines">
 
 
-42
-43
-44
-45
-46
-47</pre>
+71
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl/resource.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Type must be set for Concourse Resources</span><span class='tstring_end'>&#39;</span></span>   <span class='kw'>if</span> <span class='ivar'>@resource</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -540,7 +575,7 @@ without knowing it&#39;s underlying concourse name.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Aug  1 00:27:07 2019 by
+  Generated on Thu Aug  1 08:17:18 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.5.1).
 </div>

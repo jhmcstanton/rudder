@@ -5,7 +5,36 @@ require_relative 'component'
 module Rudder
   module DSL
     ##
-    # Concourse Resource
+    # Concourse Resource, defines inputs and outputs of a Concourse Job
+    #
+    # DSL Usage:
+    #
+    # -------------------------------------------------------
+    # {Rudder::DSL::Resource} are defined by a +name+, +type+, and +source+.
+    #
+    # @example
+    #   # Name's are set during initialization, and may not be nil.
+    #   resource :awesome_resource # => resource.name = :awesome_resource
+    #
+    #   resource nil # => Raises ArgumentError
+    #
+    # @example
+    #   # Type's are typically set during initialization
+    #   resource :awesome_resource, :git # => resource.type = :git
+    #
+    #   # but it may be set in the +resource+ block
+    #   resource :awesome_resource do
+    #     type :git
+    #   end # => resource.type = :git
+    #   # this is useful when definining +Resources+ to be included in multiple pipelines,
+    #   # where the type does not change but the name may
+    #
+    # @example
+    #   # Source is set after construction
+    #   resource :awesome_resource, :git do
+    #     source[:uri]    = 'https://github.com/jhmcstanton/rudder.git'
+    #     source[:branch] = 'master'
+    #   end
     #
     class Resource < Rudder::DSL::Component
       ##

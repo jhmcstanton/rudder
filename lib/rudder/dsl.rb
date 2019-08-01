@@ -6,6 +6,18 @@ module Rudder
   ##
   # DSL for configuring and manipulating Concourse Pipelines
   #
+  # The building blocks of the DSL are:
+  # - {Rudder::DSL::Pipeline}, the top level definition containg all other definitions.
+  #   See {https://concourse-ci.org/pipelines.html Concourse Pipeline}
+  # - {Rudder::DSL::Resource}, representing inputs and outputs of jobs.
+  #   See {https://concourse-ci.org/resources.html Concourse Resource}
+  # - {Rudder::DSL::Job}, units of work.
+  #   See {https://concourse-ci.org/jobs.html Concourse Job}
+  # - {Rudder::DSL::ResourceType}, defines how a {Rudder::DSL::Resource} operates.
+  #   See {https://concourse-ci.org/resource-types.html Concourse Resource Type}
+  # - {Rudder::DSL::Group}, logically groups together Concourse Jobs in the UI.
+  #   See {https://concourse-ci.org/pipeline-groups.html Concourse Grouping Jobs}
+  #
   module DSL
     ##
     # Entry to the DSL. Creates a new pipeline

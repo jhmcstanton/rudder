@@ -90,6 +90,23 @@
     
 <p>DSL for configuring and manipulating Concourse Pipelines</p>
 
+<p>The building blocks of the DSL are:</p>
+<ul><li>
+<p><span class='object_link'><a href="DSL/Pipeline.html" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span>, the top level definition containg all other
+definitions. See <a href="https://concourse-ci.org/pipelines.html" target="_parent" title="Concourse Pipeline">Concourse Pipeline</a></p>
+</li><li>
+<p><span class='object_link'><a href="DSL/Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span>, representing inputs and outputs of jobs. See
+<a href="https://concourse-ci.org/resources.html" target="_parent" title="Concourse Resource">Concourse Resource</a></p>
+</li><li>
+<p><span class='object_link'><a href="DSL/Job.html" title="Rudder::DSL::Job (class)">Job</a></span>, units of work. See <a href="https://concourse-ci.org/jobs.html" target="_parent" title="Concourse Job">Concourse Job</a></p>
+</li><li>
+<p><span class='object_link'><a href="DSL/ResourceType.html" title="Rudder::DSL::ResourceType (class)">ResourceType</a></span>, defines how a <span class='object_link'><a href="DSL/Resource.html" title="Rudder::DSL::Resource (class)">Resource</a></span>
+operates. See <a href="https://concourse-ci.org/resource-types.html" target="_parent" title="Concourse Resource Type">Concourse Resource Type</a></p>
+</li><li>
+<p><span class='object_link'><a href="DSL/Group.html" title="Rudder::DSL::Group (class)">Group</a></span>, logically groups together Concourse Jobs in the UI.
+See <a href="https://concourse-ci.org/pipeline-groups.html" target="_parent" title="Concourse Grouping Jobs">Concourse Grouping Jobs</a></p>
+</li></ul>
+
 
   </div>
 </div>
@@ -270,12 +287,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_eval_from_file'>eval_from_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../Rudder.html" title="Rudder (module)">Rudder</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Rudder::DSL (module)">DSL</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="DSL/Pipeline.html" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="DSL/Pipeline.html#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_eval'><span class='object_link'><a href="DSL/Pipeline.html#eval-instance_method" title="Rudder::DSL::Pipeline#eval (method)">eval</a></span></span>
@@ -349,12 +366,12 @@
       <pre class="lines">
 
 
-27
-28
-29</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_file'>from_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../Rudder.html" title="Rudder (module)">Rudder</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Rudder::DSL (module)">DSL</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="DSL/Pipeline.html" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="DSL/Pipeline.html#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">new</a></span></span> <span class='id identifier rubyid_path'>path</span>
@@ -409,12 +426,12 @@ pipelines</p>
       <pre class="lines">
 
 
-16
-17
-18</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rudder/dsl.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/rudder/dsl.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pipeline'>pipeline</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kwargs'>kwargs</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../Rudder.html" title="Rudder (module)">Rudder</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Rudder::DSL (module)">DSL</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="DSL/Pipeline.html" title="Rudder::DSL::Pipeline (class)">Pipeline</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="DSL/Pipeline.html#initialize-instance_method" title="Rudder::DSL::Pipeline#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_kwargs'>kwargs</span><span class='rparen'>)</span>
@@ -429,7 +446,7 @@ pipelines</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Aug  1 00:27:06 2019 by
+  Generated on Thu Aug  1 08:17:17 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.5.1).
 </div>

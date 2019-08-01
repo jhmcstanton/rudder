@@ -111,11 +111,47 @@
 <p>ResourceTypes specify how Concourse Resources operate and may be user or
 community defined.</p>
 
+<p>DSL Usage:</p>
+<hr>
+
+<p><span class='object_link'><a href="" title="Rudder::DSL::ResourceType (class)">ResourceType</a></span> are defined by a <code>name</code>,
+<code>type</code>, and <code>source</code>.</p>
+
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='comment'># Name&#39;s are set during initialization, and may not be nil.
+</span><span class='id identifier rubyid_resource_type'>resource_type</span> <span class='symbol'>:awesome_resource_type</span> <span class='comment'># =&gt; resource_type.name = :awesome_resource_type</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_resource_type'>resource_type</span> <span class='kw'>nil</span> <span class='comment'># =&gt; Raises ArgumentError</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='comment'># Type&#39;s are typically set during initialization
+</span><span class='id identifier rubyid_resource_type'>resource_type</span> <span class='symbol'>:awesome_resource_type</span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='comment'># =&gt; resource_type.type = :git
+</span>
+<span class='comment'># but it may be set in the +resource_type+ block
+</span><span class='id identifier rubyid_resource_type'>resource_type</span> <span class='symbol'>:awesome_resource_type</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_type'>type</span> <span class='symbol'>:git</span>
+<span class='kw'>end</span> <span class='comment'># =&gt; resource_type.type = :git
+</span><span class='comment'># this is useful when definining +ResourceTypes+ to be included in multiple pipelines,
+</span><span class='comment'># where the type does not change but the name may</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='comment'># Source is set after construction
+</span><span class='id identifier rubyid_resource_type'>resource_type</span> <span class='symbol'>:awesome_resource_type</span><span class='comma'>,</span> <span class='symbol'>:docker</span><span class='op'>-</span><span class='id identifier rubyid_image'>image</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_source'>source</span><span class='lbracket'>[</span><span class='symbol'>:repository</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>some_docker/repo</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_source'>source</span><span class='lbracket'>[</span><span class='symbol'>:tag</span><span class='rbracket'>]</span>        <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>latest</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></code></pre>
+    
+  </div>
+
 
 </div>
 
@@ -178,7 +214,7 @@ community defined.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Aug  1 00:27:07 2019 by
+  Generated on Thu Aug  1 08:17:18 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.5.1).
 </div>
