@@ -2,6 +2,8 @@
 
 This gem provides a DSL for building [Concourse CI](https://concourse-ci.org/) pipelines.
 
+Head over to jhmcstanton.github.io/rudder for the rendered docs. 
+
 ## Goals
 
 The intent of this project is to allow Concourse users to build complex pipelines with
