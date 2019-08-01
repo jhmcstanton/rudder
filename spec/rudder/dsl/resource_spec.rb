@@ -28,10 +28,6 @@ RSpec.describe Rudder::DSL::Resource do
         expect { resource.to_h }.to raise_error(RuntimeError)
       end
 
-      it 'asserts that the source is not empty' do
-        expect { resource.to_h }.to raise_error(RuntimeError)
-      end
-
       it 'returns the YAML friendly resource hash' do
         resource.instance_exec do
           source[:anything] = :whatever

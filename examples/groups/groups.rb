@@ -21,7 +21,7 @@ relative_files('jobs/*').each do |group_dir|
       parent_dir = File.dirname __FILE__
       job_pipe = pipeline.load(job_path.sub(parent_dir, ''), resources: pipeline.resources)
       pipeline.jobs.merge! job_pipe.jobs
-      job_pipe.jobs.keys.each { |job_name| @jobs << job_name }
+      job_pipe.jobs.keys.each { |job_name| job job_name }
     end
   end
 end
@@ -29,6 +29,6 @@ end
 # Add all of the jobs to a super group
 group :all do |pipeline|
   pipeline.jobs.keys.each do |job_name|
-    @jobs << job_name
+    jobs << job_name
   end
 end
