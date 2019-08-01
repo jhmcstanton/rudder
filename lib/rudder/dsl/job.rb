@@ -19,6 +19,7 @@ module Rudder
       end
 
       def to_h
+        raise 'Name must be set for Concourse Jobs' if @job[:name].nil?
         raise 'Plan must be set for Concourse Jobs' if @job[:plan].empty?
 
         super.to_h

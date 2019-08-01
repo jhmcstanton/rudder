@@ -24,6 +24,14 @@ RSpec.describe Rudder::DSL::Job do
         expect { job.to_h }.to raise_error(RuntimeError)
       end
 
+      it 'asserts that the name is not nil' do
+        job.instance_exec do
+          @job[:name] = nil
+          @job[:plan] = [:job1]
+        end
+        expect { job.to_h }.to raise_error(RuntimeError)
+      end
+
       it 'returns the YAML friendly hash' do
         job.instance_exec do
           plan << :job1
