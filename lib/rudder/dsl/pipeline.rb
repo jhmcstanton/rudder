@@ -8,16 +8,51 @@ require_relative 'util'
 
 module Rudder
   module DSL
-    #
+    ##
     # Concourse Pipeline. Main entry of the DSL. Evaluates
     # user defined pipelines.
     #
     class Pipeline
       include Rudder::DSL::Util
+      # {Hash} of names to {Rudder::DSL::Resource}
+      # @return [Hash<(String, Symbol), Rudder::DSL::Resource>]
       attr_accessor :resources
+      # {Hash} of names to {Rudder::DSL::Job}
+      # @return [Hash<(String, Symbol), Rudder::DSL::Job>]
       attr_accessor :jobs
-      attr_accessor :groups
+      # {Hash} of names to {Rudder::DSL::ResourceType}
+      # @return [Hash<(String, Symbol), Rudder::DSL::ResourceType>]
       attr_accessor :resource_types
+      # {Hash} of names to {Rudder::DSL::Group}
+      # @return [Hash<(String, Symbol), Rudder::DSL::Group>]
+      attr_accessor :groups
+
+      ##
+      # All pipelines require:
+      # - Jobs
+      # - Resources
+      #
+      # Concourse Pipelines may optionally provide:
+      # - Resource Types
+      # - Groups
+      #
+      # +Rudder+ Pipelines may optionally include a +file_path+. This
+      # is required when loading resources from neighboring files.
+      #
+      # All pipeline requirements are only needed at the Pipeline
+      # render time (after evaluation), and need not be specified
+      # for initialization.
+      #
+      # @param file_path [String] path to this {Rudder::DSL::Pipeline} definition.
+      # @param resources [Hash<(String, Symbol), Rudder::DSL::Resource]
+      #                  map of Resource names to their definitions.
+      # @param jobs      [Hash<(String, Symbol), Rudder::DSL::Job]
+      #                  map of Job names to their definitions.
+      # @param groups    [Hash<(String, Symbol), Rudder::DSL::Group]
+      #                  map of Group names to their definitions.
+      # @param resources_types [Hash<(String, Symbol), Rudder::DSL::ResourceType]
+      #                  map of Resource Type names to their definitions.
+      #
       def initialize(file_path = nil, resources: {}, jobs: {},
                      groups: {}, resource_types: {})
         @resources      = resources
@@ -36,6 +71,14 @@ module Rudder
         @file_path = file_path
       end
 
+      ##
+      # Renders all of this pipeline's components to their +Hash+
+      # representations.
+      #
+      # @return [Hash] YAML friendly +Hash+ representation of this +Pipeline+
+      #         if either +groups+ or +resource_types+ is empty they will
+      #         not be included in the rendering at all.
+      #
       def to_h
         h = {
           'resources' => _convert_h_val(@resources.values),
@@ -46,8 +89,41 @@ module Rudder
         h
       end
 
-      # TODO: Clean this up so these can be reenabled
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      ##
+      # Populates this {Rudder::DSL::Pipeline} with components
+      # and optionally fetches defined components.
+      #
+      # Fetching
+      # --------------------------------------------------------------------
+      # When +method+ is called with no arguments it is treated
+      # as a {Rudder::DSL::Pipeline} getter method. +method+ is translated
+      # to the name of a {Rudder::DSL::Component} and the +Component+
+      # is returned if defined, otherwise nil is returned.
+      # --------------------------------------------------------------------
+      #
+      # Setting
+      # --------------------------------------------------------------------
+      # When +method+ is passed _any_ arguments (positional, placement, or block)
+      # then +method+ is treated as a setter.
+      #
+      # When setting, +method+ must be the name of a known {Rudder::DSL::Component}.
+      # The first argument is a required _name_ for the component. _All_ arguments
+      # and keyword arguments are then delegated to the {Rudder::DSL::Component}'s
+      # specific initializer.
+      #
+      # Finally, when a block is provided it is evaluated within the context
+      # of the newly constructed {Rudder::DSL::Component} with full priveleges
+      # to operate on it.
+      # --------------------------------------------------------------------
+      #
+      # @return [Rudder::DSL::Component, nil] when +method+ is called with no
+      #         arguments, returns the {Rudder::DSL::Component} with name
+      #         +method+, if any exists. Otherwise returns +nil+.
+      # @raise [RuntimeError] when attempting to define an unknown
+      #         {Rudder::DSL::Component}
+      # @internal_todo
+      #   TODO: Clean this up so these can be reenabled
+      #   rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def method_missing(method, *args, **kwargs, &component_block)
         local_component = _get_local_component(method)
         if !@known_classes.include?(method) && !local_component
@@ -70,6 +146,10 @@ module Rudder
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+      ##
+      # {Rudder::DSL::Pipeline}'s respond to missing
+      #
+      # @return true
       def respond_to_missing?(*_)
         true
       end
@@ -78,9 +158,16 @@ module Rudder
         @known_classes.key? name
       end
 
+      ##
       # Evaluates the given file path.
       # If file_path nil, defaults to the one provided at construction time
       # If both are nil, raises an exception
+      #
+      # @param file_path [String, nil] path to {Rudder::DSL::Pipeline} definition
+      #                  to evaluate. Uses the current +file_path+ if +nil+
+      # @raise [RuntimeError] if +file_path+ and {Rudder::DSL::Pipeline#file_path}
+      #                       are both +nil+
+      # @return [Rudder::DSL::Pipeline] the evaluated pipeline
       def eval(file_path = nil)
         @file_path = file_path || @file_path
         if @file_path.nil?
@@ -93,6 +180,7 @@ module Rudder
         self
       end
 
+      ##
       # Given a path relative to this pipeline, loads another
       # pipeline and returns it
       #
@@ -104,6 +192,17 @@ module Rudder
       # - resource_types
       # - jobs
       # - groups
+      #
+      # @param other_pipeline_path [String] relative path to {Rudder::DSL::Pipeline}
+      #        definition to load and evaluate.
+      # @param resources [Hash<(String, Symbol), Rudder::DSL::Resource]
+      #        resources to initialize the other {Rudder::DSL::Pipeline} with
+      # @param resources_types [Hash<(String, Symbol), Rudder::DSL::ResourceType]
+      #        resources_types to initialize the other {Rudder::DSL::Pipeline} with
+      # @param jobs [Hash<(String, Symbol), Rudder::DSL::Job]
+      #        jobs to initialize the other {Rudder::DSL::Pipeline} with
+      # @param groups [Hash<(String, Symbol), Rudder::DSL::Group]
+      #        groups to initialize the other {Rudder::DSL::Pipeline} with
       def load(other_pipeline_path, resources: {}, resource_types: {},
                jobs: {}, groups: {})
         if @pipelines.key? other_pipeline_path
@@ -120,14 +219,25 @@ module Rudder
         end
       end
 
+      ##
       # Given a path to a component, its class, and
       # any args required to construct it, creates
       # a new component
       #
       # Note that this automatically includes the component into this pipeline
       #
+      # @param component_path [String] path, relative to this pipeline, containing
+      #        a {Rudder::DSL::Component} to load
+      # @param class_sym [Symbol] symbol of a {Rudder::DSL::Component}. May be one of:
+      #        (+:job+, +:resource+, +:resource_type+, +:group+)
+      # @param name [String, Symbol] name to use for the loaded
+      #             {Rudder::DSL::Component}. Must not be +nil+.
+      # @param *args any additional arguments to pass to the {Rudder::DSL::Component}
+      #             constructor.
+      # @raise RuntimeError if +name+ is +nil+ or an uknown +class_sym+ is provided.
+      #
       def load_component(component_path, class_sym, name, *args)
-        raise "Unable to load #{clazz}" unless @known_classes.keys.include? class_sym
+        raise "Unable to load #{class_sym}" unless @known_classes.keys.include? class_sym
         raise 'Name must not be nil' if name.nil?
 
         full_path = File.join(File.dirname(@file_path), component_path)

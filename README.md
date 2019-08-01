@@ -22,13 +22,12 @@ Related goals:
 Currently this project supports building a pipeline from a single definition file.
 Pipelines can utilize other pipeline definitions by either entirely importing
 the contents or borrowing only specific pieces.
-Almost zero validation is performed.
 
 TODOs:
 
-- Add unit tests
-- Add helper methods for loading files and dumping them to disk
-- Wrap the above in a CLI tool
+- Add more unit tests
+- Add integration tests, probably using the examples.
+- Add more docs
 
 ## Non-Goals
 
@@ -61,18 +60,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### DSL
+TODO: Fill this in
 
+### Compiling
+
+Compile your `Rudder` definitions using the provided CLI tool:
+
+```
+Usage: rudder [options]
+    -o, --output YAML_PATH           YAML_PATH to write the pipeline config
+    -c, --config RUDDER_CONFIG       Path to the RUDDER_CONFIG file to evaluate
+    -v, --version                    Show version
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
+### Docs
+
+Build the docs with
+
+```
+bundle exec rake rdoc
+```
+
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rudder.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/jhmcstanton/rudder.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT).
