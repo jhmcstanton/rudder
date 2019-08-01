@@ -4,14 +4,7 @@ require 'rudder'
 require 'spec_helper'
 require 'tempfile'
 
-examples = [
-  'hello_world.rb',
-  'shared/common.rb',
-  'shared/wrapper.rb',
-  'shared/borrows.rb',
-  'includes/includes.rb',
-  'groups/groups.rb'
-].map { |p| File.join('examples', p) }
+examples = Dir['examples/**/*_pipeline.rb']
 
 ##
 # Integration tests that simply assert

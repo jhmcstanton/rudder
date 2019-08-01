@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-common = load 'common.rb'
+common = load 'common_pipeline.rb'
 
 resource :timer, :time do
   source[:interval] = '30m'
