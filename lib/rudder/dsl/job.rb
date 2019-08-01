@@ -10,6 +10,23 @@ module Rudder
     # Defines a plan of work that may share state
     # in an explicit manner.
     #
+    # DSL Usage:
+    # -------------------------------------------------------
+    # {Rudder::DSL::Job} are defined by a +name+ and a +plan+ of work.
+    #
+    # @example
+    #   # Name's are set during initializtion, and may not be nil
+    #   job :awesome_job # => job.name = :awesome_job
+    #
+    #   job nil # => Raises ArgumentError
+    #
+    # @example
+    #   # The plan is set after construction
+    #   job :awesome_job do
+    #     plan << { get: :some_resource   }
+    #     plan << { get: :another_resource }
+    #   end # => plan.source = [{get: :some_resource}, {get: :another_resource}]
+    #
     class Job < Rudder::DSL::Component
       ##
       # All Jobs require:
