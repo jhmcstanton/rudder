@@ -7,7 +7,7 @@ require 'rudder/version'
 Gem::Specification.new do |spec|
   spec.name          = 'rudder'
   spec.version       = Rudder::VERSION
-  spec.authors       = ['jhmcstanton']
+  spec.authors       = ['Jim McStanton']
   spec.email         = ['jim@jhmcstanton.com']
 
   spec.summary       = 'Provides a DSL for building Concourse CI pipelines.'
