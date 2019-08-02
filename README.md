@@ -29,7 +29,6 @@ the contents or borrowing only specific pieces.
 TODOs:
 
 - Add more unit tests
-- Add more docs
 
 ## Non-Goals
 
@@ -40,9 +39,10 @@ TODOs:
 
 ## Development
 
-Use `docker-compose up` to stand up a local concourse instance for pipeline development.
-Credit goes to Stark and Wayne for their excellent [Concourse tutorial](https://github.com/starkandwayne/concourse-tutorial/)
-that includes the `docker-compose.yml` found here.
+Use `bundle exec rake docker_up` to stand up a local concourse instance
+for pipeline development. Credit goes to Stark and Wayne for their excellent 
+[Concourse tutorial](https://github.com/starkandwayne/concourse-tutorial/) that
+includes the `docker-compose.yml` found here.
 
 ## Installation
 
@@ -87,7 +87,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 Build the docs with
 
 ```
-bundle exec rake rdoc
+bundle exec rake yard
 ```
 
 ## Contributing

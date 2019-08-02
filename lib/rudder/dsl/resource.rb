@@ -7,9 +7,8 @@ module Rudder
     ##
     # Concourse Resource, defines inputs and outputs of a Concourse Job
     #
-    # DSL Usage:
+    # == DSL Usage:
     #
-    # -------------------------------------------------------
     # {Rudder::DSL::Resource} are defined by a +name+, +type+, and +source+.
     #
     # @example

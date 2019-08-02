@@ -10,8 +10,8 @@ module Rudder
     # Defines a plan of work that may share state
     # in an explicit manner.
     #
-    # DSL Usage:
-    # -------------------------------------------------------
+    # == DSL Usage:
+    #
     # {Rudder::DSL::Job} are defined by a +name+ and a +plan+ of work.
     #
     # @example

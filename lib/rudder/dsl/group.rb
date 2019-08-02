@@ -8,8 +8,8 @@ module Rudder
     # Concourse group. Logically groups together Concourse
     # jobs in the UI.
     #
-    # DSL Usage:
-    # -------------------------------------------------------
+    # == DSL Usage:
+    # 
     # {Rudder::DSL::Group}'s are the simplest element of any
     # Concourse Pipeline, defined by only a name and a non-empty
     # list of jobs.

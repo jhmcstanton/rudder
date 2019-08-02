@@ -96,8 +96,6 @@ entirely importing the contents or borrowing only specific pieces.</p>
 <p>TODOs:</p>
 <ul><li>
 <p>Add more unit tests</p>
-</li><li>
-<p>Add more docs</p>
 </li></ul>
 
 <h2 id="label-Non-Goals">Non-Goals</h2>
@@ -110,8 +108,8 @@ of allowing users to create incorrect  pipelines</p>
 
 <h2 id="label-Development">Development</h2>
 
-<p>Use <code>docker-compose up</code> to stand up a local concourse instance
-for pipeline development. Credit goes to Stark and Wayne for their
+<p>Use <code>bundle exec rake docker_up</code> to stand up a local concourse
+instance for pipeline development. Credit goes to Stark and Wayne for their
 excellent <a
 href="https://github.com/starkandwayne/concourse-tutorial/">Concourse
 tutorial</a> that includes the <code>docker-compose.yml</code> found here.</p>
@@ -168,7 +166,7 @@ href="https://rubygems.org">rubygems.org</a>.</p>
 
 <p>Build the docs with</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_rdoc'>rdoc</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_yard'>yard</span>
 </code></pre>
 
 <h2 id="label-Contributing">Contributing</h2>
@@ -183,7 +181,7 @@ href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Aug  1 08:25:30 2019 by
+  Generated on Thu Aug  1 20:34:44 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.5.1).
 </div>

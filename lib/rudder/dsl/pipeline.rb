@@ -12,6 +12,116 @@ module Rudder
     # Concourse Pipeline. Main entry of the DSL. Evaluates
     # user defined pipelines.
     #
+    # == DSL Usage:
+    #
+    # {Rudder::DSL::Pipeline}'s are composed of various components:
+    #
+    # - {Rudder::DSL::Resource}: basic inputs and output of jobs.
+    # - {Rudder::DSL::Job}: basic computation unit of a pipeline
+    # - {Rudder::DSL::ResourceType}: custom resource definitions
+    # - {Rudder::DSL::Group}: logical grouping of jobs in the UI.
+    #   Either every job is in a Group or no job is (hard Concourse
+    #   requirement)
+    #
+    # === Adding Components
+    #
+    # Components are added to the Pipeline by component type, followed
+    # by name, optional arguments, then typically a block.
+    #
+    # @example Adding Components to Pipelines
+    #   #
+    #   # my_pipeline_definition.rb
+    #   #
+    #   resource :my_git_repo, :git do
+    #     source[:uri]    = 'https://github.com/my/repo.git'
+    #     source[:branch] = :master
+    #   end
+    #
+    #   resource :daily, :time do
+    #     source[:interval] = '24h'
+    #
+    #   job :build_project do
+    #     plan << [in_parallel: [{ get: :my_git_repo }, { get: :daily, trigger: true}]]
+    #     build = { task: 'build my project', config: {
+    #       platform: :linux,
+    #       image_resource: { type: 'docker-image', source: { repository: 'busybox' } },
+    #       run: { path: 'my_git_repo/build.sh' }
+    #     }}
+    #     plan << build
+    #   end
+    #
+    #
+    # === Loading Other Pipelines
+    #
+    # {Rudder::DSL::Pipeline}'s can load other pipeline definitions
+    # using {Rudder::DSL::Pipeline#load}. This is a useful mechanism
+    # for abstracting out common subsections of pipelines, then
+    # merging them into larger pipelines.
+    #
+    # @example Loading / Importing Pipelines
+    #   #
+    #   # load_neighbor.rb
+    #   #
+    #   neighbor = load 'neighbor_pipeline.rb'
+    #
+    #   # merge all the neighboring resources and jobs into this pipeline
+    #   resources.merge! neighbor.resources
+    #   jobs.merge! neighbor.jobs
+    #
+    #   resource_type :slack_notification, 'docker-image' do
+    #     source[:repository] = 'some/slack-docker-repo'
+    #   end
+    #
+    #   resource :our_slack_channel, :slack_notification do
+    #     source[:url] = '((slack-team-webhook))'
+    #   end
+    #
+    #   # Add a slack notification task to the end
+    #   # of every job
+    #   jobs.values.each do |job|
+    #     job.plan << {
+    #       put: :our_slack_channel,
+    #       params: { text: "Job #{job.name} complete!" }
+    #     }
+    #   end
+    #
+    # === Loading Individual Components
+    # Individual pipeline components can also be defined on a per-file
+    # basis and then loaded into a {Rudder::DSL::Pipeline} using
+    # {Rudder::DSL::Pipeline#load_component}. This is useful for factoring
+    # out common resources for multiple pipeline's to use.
+    #
+    # @example Loading / Importing Individual Components
+    #   #
+    #   # operations_scripts_resource.rb
+    #   #
+    #   type :git
+    #   source[:uri]    = 'https://github.com/<our org>/operations_scripts.git'
+    #   source[:branch] = 'master'
+    #
+    #
+    #   #
+    #   # some_operations_pipeline.rb
+    #   #
+    #
+    #   # load the resource into the pipeline. Automatically includes
+    #   # the resource into the resources list with the name :scripts
+    #   load_component 'operations_scripts_resource.rb', :resource, :scripts
+    #
+    #   job :audit do |pipeline|
+    #     plan << {
+    #       task: 'run the audit script', config: {
+    #         platform: :linux,
+    #         image_resource: {
+    #           type: 'docker-image',
+    #           source: { repository: 'alpine/git' }
+    #         },
+    #         run: {
+    #           path: pipeline.scripts.sub_path('audit.rb')
+    #         }
+    #       }
+    #     }
+    #   end
     class Pipeline
       include Rudder::DSL::Util
       # {Hash} of names to {Rudder::DSL::Resource}
