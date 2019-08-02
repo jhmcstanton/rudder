@@ -11,6 +11,9 @@ examples = Dir['examples/**/*_pipeline.rb']
 # that our examples remain compiling
 # and setting withing Concourse without error
 #
+
+raise 'Unable to log into concourse' unless system('fly login -t local -u admin -p admin')
+
 RSpec.describe Rudder do
   examples.each do |example|
     context "Pipeline #{example}" do

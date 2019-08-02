@@ -9,7 +9,7 @@ module Rudder
     # jobs in the UI.
     #
     # == DSL Usage:
-    # 
+    #
     # {Rudder::DSL::Group}'s are the simplest element of any
     # Concourse Pipeline, defined by only a name and a non-empty
     # list of jobs.

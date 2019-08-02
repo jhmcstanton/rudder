@@ -234,16 +234,14 @@ module Rudder
       # @internal_todo
       #   TODO: Clean this up so these can be reenabled
       #   rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      def method_missing(method, *args, **kwargs, &component_block)
+      def method_missing(method, *args, &component_block)
         local_component = _get_local_component(method)
         if !@known_classes.include?(method) && !local_component
-          return super.send(method, args, kwargs, component_block)
+          return super.send(method, args, component_block)
         end
 
         # Look up a previously defined component from the pipeline
-        return local_component if local_component && args.empty? && kwargs.empty? && !block_given?
-
-        raise "Unexpected keyword arguments for method #{method}" unless kwargs.empty?
+        return local_component if local_component && args.empty? && !block_given?
 
         component_group = @known_classes[method][:pipeline_group]
         name = args[0]

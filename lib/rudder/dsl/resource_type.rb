@@ -11,7 +11,7 @@ module Rudder
     # operate and may be user or community defined.
     #
     # == DSL Usage:
-    # 
+    #
     # {Rudder::DSL::ResourceType} are defined by a +name+, +type+, and +source+.
     #
     # @example
