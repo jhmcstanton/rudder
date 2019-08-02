@@ -191,12 +191,19 @@ module Rudder
       #
       def to_h
         h = {
-          'resources' => _convert_h_val(@resources.values),
-          'jobs' => _convert_h_val(@jobs.values)
+          'resources' => p_convert_h_val(@resources.values),
+          'jobs' => p_convert_h_val(@jobs.values)
         }
-        h['groups'] = _convert_h_val(@groups.values) unless @groups.empty?
-        h['resource_types'] = _convert_h_val(@resource_types.values) unless @resource_types.empty?
+        h['groups'] = p_convert_h_val(@groups.values) unless @groups.empty?
+        h['resource_types'] = p_convert_h_val(@resource_types.values) unless @resource_types.empty?
         h
+      end
+
+      #
+      # Wraps {_convert_h_val} since it will always set use_name to false
+      #
+      def p_convert_h_val(hash)
+        _convert_h_val(hash, false)
       end
 
       ##

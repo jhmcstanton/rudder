@@ -34,7 +34,7 @@ job 'Goodbye from the Wrapper Pipeline' do |_pipeline|
   last_job = common.jobs.values.last
   last_job.plan.select { |task| task.key? :get }.each do |task|
     task = task.dup
-    task[:passed] = [last_job.name]
+    task[:passed] = [last_job]
     plan << task
   end
   task = {

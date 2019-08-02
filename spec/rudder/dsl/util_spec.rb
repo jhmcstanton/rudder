@@ -4,7 +4,15 @@ require 'rudder/dsl/util'
 require 'spec_helper'
 
 RSpec.describe Rudder::DSL::Util do
-  let(:dummy) { Class.new { include Rudder::DSL::Util }.new }
+  let(:dummy) do
+    Class.new do
+      include Rudder::DSL::Util
+      attr_accessor :name
+      def initialize
+        @name = :dummy_name
+      end
+    end.new
+  end
 
   describe '#_deep_to_h' do
     context 'when provided an empty hash' do
@@ -54,6 +62,13 @@ RSpec.describe Rudder::DSL::Util do
     context 'when provided an integer' do
       it 'returns the same integer' do
         expect(dummy._convert_h_val(1)).to eq(1)
+      end
+    end
+
+    context 'when provided a named object' do
+      it 'renders just the name of the object' do
+        test = { a: dummy }
+        expect(dummy._convert_h_val(test)).to eq('a' => 'dummy_name')
       end
     end
   end
