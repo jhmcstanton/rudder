@@ -1,11 +1,14 @@
 # Rudder
 
 [![Gem Version](https://badge.fury.io/rb/rudder.svg)](https://badge.fury.io/rb/rudder)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://rubydoc.org/gems/rudder/frames)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 This gem provides a DSL for building [Concourse CI](https://concourse-ci.org/) pipelines.
 
-Head over to [jhmcstanton.github.io/rudder](https://jhmcstanton.github.io/rudder)
-for the rendered docs. 
+Rubygems release docs can be found above, or head over to
+[jhmcstanton.github.io/rudder](https://jhmcstanton.github.io/rudder) for the latest
+docs from HEAD.
 
 ## Goals
 
@@ -30,7 +33,8 @@ the contents or borrowing only specific pieces.
 
 TODOs:
 
-- Add more unit tests
+- More tests & add a coverage tool
+- Add CI
 
 ## Non-Goals
 
