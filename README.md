@@ -1,5 +1,7 @@
 # Rudder
 
+[![Gem Version](https://badge.fury.io/rb/rudder.svg)](https://badge.fury.io/rb/rudder)
+
 This gem provides a DSL for building [Concourse CI](https://concourse-ci.org/) pipelines.
 
 Head over to [jhmcstanton.github.io/rudder](https://jhmcstanton.github.io/rudder)
