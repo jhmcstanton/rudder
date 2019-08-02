@@ -88,7 +88,7 @@ module Rudder
     # === Loading Individual Components
     # Individual pipeline components can also be defined on a per-file
     # basis and then loaded into a {Rudder::DSL::Pipeline} using
-    # {Rudder::DSL::Pipeline#load_component}. This is useful for factoring
+    # {Rudder::DSL::Pipeline#include_component}. This is useful for factoring
     # out common resources for multiple pipeline's to use.
     #
     # @example Loading / Importing Individual Components
@@ -106,7 +106,7 @@ module Rudder
     #
     #   # load the resource into the pipeline. Automatically includes
     #   # the resource into the resources list with the name :scripts
-    #   load_component 'operations_scripts_resource.rb', :resource, :scripts
+    #   include_component 'operations_scripts_resource.rb', :resource, :scripts
     #
     #   job :audit do |pipeline|
     #     plan << {
@@ -351,7 +351,7 @@ module Rudder
       #             constructor.
       # @raise RuntimeError if +name+ is +nil+ or an uknown +class_sym+ is provided.
       #
-      def load_component(component_path, class_sym, name, *args)
+      def include_component(component_path, class_sym, name, *args)
         raise "Unable to load #{class_sym}" unless @known_classes.keys.include? class_sym
         raise 'Name must not be nil' if name.nil?
 

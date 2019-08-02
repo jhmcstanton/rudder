@@ -76,9 +76,9 @@ RSpec.describe Rudder::DSL::Pipeline do
     end
   end
 
-  describe '#load_component' do
+  describe '#include_component' do
     it 'includes a component from disk into self' do
-      pipeline.load_component 'sample_resource.rb', :resource, :test_resource
+      pipeline.include_component 'sample_resource.rb', :resource, :test_resource
       expected = {
         'jobs' => [],
         'resources' => [
