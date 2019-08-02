@@ -6,6 +6,8 @@
 /spec/reports/
 /tmp/
 /vendor/
+/doc/
+rudder-*.gem
 
 # rspec failure tracking
 .rspec_status
