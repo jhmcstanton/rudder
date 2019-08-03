@@ -6,6 +6,28 @@ require 'spec_helper'
 RSpec.describe Rudder::DSL::Pipeline do
   let(:path)     { File.join(File.dirname(__FILE__), 'does_not_exist.rb') }
   let(:pipeline) { described_class.new path }
+  let(:sample_pipeline_h) do
+    {
+      'jobs' => [
+        {
+          'name' => 'sample_job',
+          'plan' => [
+            {
+              'get' => 'sample_resource'
+            }
+          ]
+        }
+      ], 'resources' => [
+        {
+          'name' => 'sample_resource',
+          'type' => 'git',
+          'source' => {
+            'uri' => 'some-uri'
+          }
+        }
+      ]
+    }
+  end
 
   describe '#to_h' do
     context 'when no components are in the pipeline' do
@@ -103,27 +125,48 @@ RSpec.describe Rudder::DSL::Pipeline do
 
     it 'evaluates the loaded pipeline' do
       other = pipeline.load 'sample_pipeline.rb'
-      expected = {
-        'jobs' => [
-          {
-            'name' => 'sample_job',
-            'plan' => [
-              {
-                'get' => 'sample_resource'
-              }
-            ]
-          }
-        ], 'resources' => [
-          {
-            'name' => 'sample_resource',
-            'type' => 'git',
-            'source' => {
-              'uri' => 'some-uri'
-            }
-          }
-        ]
-      }
-      expect(other.to_h).to eq(expected)
+      expect(other.to_h).to eq(sample_pipeline_h)
+    end
+  end
+
+  describe '#include_pipeline' do
+    it 'includes all elements of the target pipeline in this one' do
+      pipeline.include_pipeline 'sample_pipeline.rb'
+      expect(pipeline.to_h).to eq(sample_pipeline_h)
+    end
+  end
+
+  describe '#merge_components' do
+    context 'when provided a pipeline' do
+      it 'includes all the components of other pipeline in this one' do
+        other = pipeline.load 'sample_pipeline.rb'
+        pipeline.merge_components other
+        expect(pipeline.to_h).to eq(sample_pipeline_h)
+      end
+    end
+
+    context 'when provided a pipeline hash' do
+      it 'includes all the components of other pipeline in this one' do
+        other = pipeline.load 'sample_pipeline.rb'
+        pipeline.merge_components other.resources
+        pipeline.merge_components other.jobs
+        expect(pipeline.to_h).to eq(sample_pipeline_h)
+      end
+    end
+
+    context 'when provides an array of resources' do
+      it 'includes all the components in their appropriate hash' do
+        other = pipeline.load 'sample_pipeline.rb'
+        pipeline.merge_components other.resources.values
+        pipeline.merge_components other.jobs.values
+        expect(pipeline.to_h).to eq(sample_pipeline_h)
+      end
+    end
+
+    context 'when provided an unsupported type' do
+      it 'raises an Error' do
+        expect { pipeline.merge_components(1) }.to raise_error(RuntimeError)
+      end
     end
   end
 end

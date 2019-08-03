@@ -85,7 +85,24 @@ module Rudder
     #     }
     #   end
     #
-    # === Loading Individual Components
+    # === Merging Pipeline Components
+    #
+    # {Rudder::DSL::Pipeline}'s can merge loaded or defined
+    # {Rudder::DSL:Pipelines}'s, {Hash}'s of components, or {Array}'s
+    # of components into the current definition using
+    # {Rudder::DSL::Pipeline#merge_components}.
+    #
+    # @see Rudder::DSL::Pipeline#merge_components #merge_components for
+    #   modes of operation.
+    #
+    # === Including Other Pipelines
+    #
+    # {Rudder::DSL::Pipeline}'s can include other pipeline definitions
+    # using {Rudder::DSL::Pipeline#include_pipeline}. This is similar
+    # to {Rudder::DSL:Pipeline#load} except that all the components
+    # are automatically included into this {Rudder::DSL::Pipeline}
+    #
+    # === Including Individual Components
     # Individual pipeline components can also be defined on a per-file
     # basis and then loaded into a {Rudder::DSL::Pipeline} using
     # {Rudder::DSL::Pipeline#include_component}. This is useful for factoring
@@ -339,7 +356,7 @@ module Rudder
       # any args required to construct it, creates
       # a new component
       #
-      # Note that this automatically includes the component into this pipeline
+      # @note This automatically includes the component into this pipeline
       #
       # @param component_path [String] path, relative to this pipeline, containing
       #        a {Rudder::DSL::Component} to load
@@ -360,6 +377,103 @@ module Rudder
         component.instance_eval File.read(full_path), full_path
         @known_classes[class_sym][:pipeline_group][name] = component
         component
+      end
+
+      ##
+      # Includes another {Rudder::DSL::Pipeline} from a file
+      # into this {Rudder::DSL::Pipeline}.
+      #
+      # @note Any component provided that has an overlapping name
+      #   with a previously defined component in this pipeline
+      #   will override the previous definition
+      #
+      # @param other_pipeline_path [String] path to the
+      #   {Rudder::DSL::Pipeline} definition
+      # @return [nil]
+      def include_pipeline(other_pipeline_path)
+        pipeline = load other_pipeline_path
+        merge_components(pipeline)
+      end
+
+      ##
+      # Merges the provided {Rudder::DSL::Pipeline} components
+      # into this {Rudder::DSL::Pipeline}.
+      #
+      # @note Any component provided that has an overlapping name
+      #   with a previously defined component in this pipeline
+      #   will override the previous definition
+      #
+      # == Modes of Operation:
+      # - {Rudder::DSL::Pipeline}:
+      # When provided a Pipeline, merges
+      # all like components into this Pipeline
+      #
+      # - Hash<String, Component>:
+      # When provided a Hash, merges all the components into the
+      # like Hash in this Pipeline
+      #
+      # - Array<Component>:
+      # When provided an Array, merges all Components into this
+      # Pipeline. Inserts components into their respective Pipeline
+      # group by class.
+      #
+      # @param components [{Rudder::DSL::Pipeline}, Hash, Array]
+      #   See Modes of Operation for details
+      # @raise [RuntimeError] when type provided is unsupported
+      # @return [nil]
+      #
+      def merge_components(components)
+        case components
+        when Pipeline then _merge_pipeline(components)
+        when Hash then _merge_hash(components)
+        when Array then _merge_array(components)
+        else raise "Unable to merge #{components}: unsupported type"
+        end
+      end
+
+      private
+
+      # Merges all of the components of the other pipeline
+      # into this one.
+      # NOTE: This will override components with the same
+      # name silently
+      def _merge_pipeline(pipeline)
+        other_classes = pipeline.instance_variable_get(:@known_classes)
+        @known_classes.each do |clazz, v|
+          group = v[:pipeline_group]
+          other_group = other_classes[clazz][:pipeline_group]
+          group.merge!(other_group)
+        end
+      end
+
+      #
+      # Merges a hash of the form Hash<Name, Component>
+      # into the like hash in this pipeline
+      # NOTE: This will override components with the same
+      # name silently
+      def _merge_hash(other)
+        clazz = _class_to_sym(other.values.first)
+        @known_classes[clazz][:pipeline_group].merge!(other)
+      end
+
+      #
+      # Merges an array of Pipeline components into this
+      # pipeline. Components are inserted into their respective
+      # pipeline groups by their class
+      # NOTE: This will override components with the same
+      # name silently
+      def _merge_array(components)
+        components.each do |component|
+          clazz = _class_to_sym(component)
+          name = component.name
+          @known_classes[clazz][:pipeline_group][name] = component
+        end
+      end
+
+      def _class_to_sym(clazz)
+        # insert _ before capital letters in the middle of the string
+        clazz = clazz.class.to_s.split('::').last
+        clazz.to_s.gsub(/(?!^)([A-Z])/, '_\\1').downcase.to_sym
       end
 
       # Yikes! Seems like a bad idea - if someone uses the same name twice (say, 1 resource
