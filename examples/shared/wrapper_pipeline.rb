@@ -11,8 +11,7 @@ get_timer_task = { get: :timer, trigger: true }
 start_plan = common.jobs.values.first.plan
 start_plan << get_timer_task
 
-resources.merge! common.resources
-jobs     .merge! common.jobs
+merge_components common
 
 job 'An extra job that the wrapper pipeline requires' do
   plan << get_timer_task

@@ -8,7 +8,7 @@ end
 
 # Borrow any git resources defined in common
 git_resources = common.resources.select { |_name, r| r.type == :git }
-resources.merge! git_resources
+merge_components git_resources
 
 job 'Just borrowing the git resource' do
   git_names = git_resources.keys
