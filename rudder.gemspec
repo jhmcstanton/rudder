@@ -13,6 +13,14 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Provides a DSL for building Concourse CI pipelines.'
   spec.homepage      = 'http://www.github.com/jhmcstanton/rudder'
   spec.license       = 'MIT'
+  # rubocop:disable Layout/AlignHash, Metrics/LineLength
+  spec.metadata      = {
+    'homepage_uri'    => 'https://github.com/jhmcstanton/rudder',
+    'changelog_uri'   => "https://github.com/jhmcstanton/rudder/blob/#{Rudder::VERSION}/CHANGELOG.md",
+    'source_code_uri' => 'https://github.com/jhmcstanton/rudder',
+    'bug_tracker_uri' => 'https://github.com/jhmcstanton/rudder/issues'
+  }
+  # rubocop:enable Layout/AlignHash, Metrics/LineLength
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
