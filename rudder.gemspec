@@ -15,10 +15,11 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   # rubocop:disable Layout/AlignHash, Metrics/LineLength
   spec.metadata      = {
-    'homepage_uri'    => 'https://github.com/jhmcstanton/rudder',
-    'changelog_uri'   => "https://github.com/jhmcstanton/rudder/blob/#{Rudder::VERSION}/CHANGELOG.md",
-    'source_code_uri' => 'https://github.com/jhmcstanton/rudder',
-    'bug_tracker_uri' => 'https://github.com/jhmcstanton/rudder/issues'
+    'homepage_uri'      => 'https://github.com/jhmcstanton/rudder',
+    'changelog_uri'     => "https://github.com/jhmcstanton/rudder/blob/#{Rudder::VERSION}/CHANGELOG.md",
+    'source_code_uri'   => 'https://github.com/jhmcstanton/rudder',
+    'bug_tracker_uri'   => 'https://github.com/jhmcstanton/rudder/issues',
+    'documentation_uri' => "https://www.rubydoc.info/gems/rudder/#{Rudder::VERSION}"
   }
   # rubocop:enable Layout/AlignHash, Metrics/LineLength
 
