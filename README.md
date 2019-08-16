@@ -1,7 +1,7 @@
 # Rudder
 
 [![Gem Version](https://badge.fury.io/rb/rudder.svg)](https://badge.fury.io/rb/rudder)
-[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://rubydoc.org/gems/rudder/frames)
+[![Documentation](https://img.shields.io/badge/docs-rdoc.info-blue.svg)](https://rubydoc.org/gems/rudder/frames)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 This gem provides a DSL for building [Concourse CI](https://concourse-ci.org/) pipelines.
@@ -69,10 +69,10 @@ Or install it yourself as:
 ## Usage
 
 ### DSL
-See the [DSL class documentation](https://jhmcstanton.github.io/rudder/Rudder/DSL.html)
+See the [DSL class documentation](./Rudder/DSL.html)
 for specific details. 
 
-### Compiling
+### Compiling Pipelines
 
 Compile your `Rudder` definitions using the provided CLI tool:
 
