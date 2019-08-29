@@ -7,7 +7,7 @@
 This gem provides a DSL for building [Concourse CI](https://concourse-ci.org/) pipelines.
 
 Rubygems release docs can be found above, or head over to
-[jhmcstanton.github.io/rudder](https://jhmcstanton.github.io/rudder) for the latest
+[rudder.jhmcstanton.com](https://rudder.jhmcstanton.com) for the latest
 docs from HEAD.
 
 ## Goals
