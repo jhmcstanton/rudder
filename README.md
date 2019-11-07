@@ -80,7 +80,10 @@ Compile your `Rudder` definitions using the provided CLI tool:
 Usage: rudder [options]
     -o, --output YAML_PATH           YAML_PATH to write the pipeline config
     -c, --config RUDDER_CONFIG       Path to the RUDDER_CONFIG file to evaluate
+    -l CONCOURSE_VARS,               Path to the CONCOURSE_VARS yaml file
+        --load-vars-from
     -v, --version                    Show version
+
 ```
 ## Development
 
