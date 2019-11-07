@@ -139,6 +139,31 @@ module Rudder
     #       }
     #     }
     #   end
+    #
+    # === Loading Concourse Variables
+    # Occasionally it is helpful to have access to concourse variable
+    # when generating a pipeline, for example, when a Rudder pipeline
+    # should be parameterized on some value already stored in a Concourse
+    # parameter file. Rudder supports loading a concourse vars file from
+    # the {Rudder} command line. These are exposed to the pipeline dsl
+    # through the +vars+ accessor.
+    #
+    # @example Loading Concourse Variables
+    #   #
+    #   # vars_pipeline.rb
+    #   #
+    #   # Assuming a variables file of the form:
+    #   #
+    #   # my_branch: awesome-feature
+    #   #
+    #
+    #   my_branch = vars :my_branch # <--- Pulls in the variable here
+    #
+    #   resource :my_git_repo, :git do
+    #     source[:uri]    = 'https://github.com/my/repo.git'
+    #     source[:branch] = my_branch
+    #   end
+    #   ...
     class Pipeline
       include Rudder::DSL::Util
       # {Hash} of names to {Rudder::DSL::Resource}
@@ -153,6 +178,9 @@ module Rudder
       # {Hash} of names to {Rudder::DSL::Group}
       # @return [Hash<(String, Symbol), Rudder::DSL::Group>]
       attr_accessor :groups
+      # {Hash} of concourse variables
+      # @return [Hash<Symbol, (String,Float,Hash,Array)>]
+      attr_accessor :vars
 
       ##
       # All pipelines require:
@@ -179,9 +207,12 @@ module Rudder
       #                  map of Group names to their definitions.
       # @param resources_types [Hash<(String, Symbol), Rudder::DSL::ResourceType]
       #                  map of Resource Type names to their definitions.
+      # @param vars      [Hash<(String, Symbol), (String,Float,Hash,Array)]
+      #                  map of var names to corresponding concourse variable
+      #                  value
       #
       def initialize(file_path = nil, resources: {}, jobs: {},
-                     groups: {}, resource_types: {})
+                     groups: {}, resource_types: {}, vars: {})
         @resources      = resources
         @jobs           = jobs
         @groups         = groups
@@ -196,6 +227,9 @@ module Rudder
         # rubocop:enable Layout/AlignHash, Layout/SpaceBeforeComma
         @pipelines = {}
         @file_path = file_path
+        @vars      = vars.map do |k, v|
+          [k.to_sym, v]
+        end.to_h
       end
 
       ##

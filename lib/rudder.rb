@@ -15,10 +15,11 @@ module Rudder
   # to a {Hash}
   #
   # @param path [String] the path to the +Rudder+ definition
+  # @param vars optional [Hash<(Symbol, String), Any>] of +Concourse+ variables
   # @return [Hash] Concourse YAML friendly hash
   #
-  def self.compile(path)
-    Rudder::DSL.eval_from_file(path).to_h
+  def self.compile(path, vars: {})
+    Rudder::DSL.eval_from_file(path, vars: vars).to_h
   end
 
   ##
