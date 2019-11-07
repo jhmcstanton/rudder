@@ -157,7 +157,7 @@ module Rudder
     #   # my_branch: awesome-feature
     #   #
     #
-    #   my_branch = vars :my_branch # <--- Pulls in the variable here
+    #   my_branch = vars[:my_branch] # <--- Pulls in the variable here
     #
     #   resource :my_git_repo, :git do
     #     source[:uri]    = 'https://github.com/my/repo.git'
