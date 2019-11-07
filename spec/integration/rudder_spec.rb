@@ -18,7 +18,10 @@ RSpec.describe Rudder do
   examples.each do |example|
     context "Pipeline #{example}" do
       it 'sets without error in Concourse' do
-        pipeline = Rudder.compile example
+        vars_name = File.join(File.dirname(example), 'vars.yml')
+        vars = {}
+        vars = YAML.load_file(vars_name) if File.file? vars_name
+        pipeline = Rudder.compile example, vars: vars
         example_name = File.basename example
         output = Tempfile.new(example_name)
         puts "output_path: #{output.path}"

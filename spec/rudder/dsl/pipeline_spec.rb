@@ -169,4 +169,15 @@ RSpec.describe Rudder::DSL::Pipeline do
       end
     end
   end
+
+  describe '#initialize' do
+    context 'when concourse vars are provided' do
+      it 'converts the variables to a rudder friendly hash' do
+        vars = { 'test' => 10, 'another' => [1, 2, 3] }
+        expected_p_vars = { test: 10, another: [1, 2, 3] }
+        pipeline = described_class.new(vars: vars)
+        expect(pipeline.vars).to eq(expected_p_vars)
+      end
+    end
+  end
 end

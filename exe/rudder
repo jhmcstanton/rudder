@@ -10,7 +10,7 @@ name = File.basename __FILE__
 
 # TODO: Figure out a nice way to join these options with fly's without
 # tieing them together
-options = {}
+options = { }
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: #{name} [options]"
 
@@ -20,6 +20,10 @@ optparse = OptionParser.new do |opts|
 
   opts.on('-c', '--config RUDDER_CONFIG', 'Path to the RUDDER_CONFIG file to evaluate') do |c|
     options[:rudder] = c
+  end
+
+  opts.on('-l', '--load-vars-from CONCOURSE_VARS', 'Path to the CONCOURSE_VARS yaml file') do |v|
+    options[:vars] = v
   end
 
   opts.on('-v', '--version', 'Show version') do
@@ -39,7 +43,11 @@ unless options[:rudder]
   exit 1
 end
 
-pipeline = Rudder.compile(options[:rudder])
+vars = {}
+vars_path = options[:vars]
+vars = YAML.load_file(vars_path) if vars_path
+
+pipeline = Rudder.compile(options[:rudder], vars: vars)
 
 output   = STDOUT
 if options[:output]

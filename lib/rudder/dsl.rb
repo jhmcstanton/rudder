@@ -34,10 +34,11 @@ module Rudder
     # at the +path+
     #
     # @param path [String] to the {Rudder::DSL::Pipeline} definition
+    # @param vars optional [Hash<(Symbol, String), Any>] of +Concourse+ variables
     # @return [Rudder::DSL::Pipeline] from +path+, unevaluated
     #
-    def self.from_file(path)
-      Rudder::DSL::Pipeline.new path
+    def self.from_file(path, vars: {})
+      Rudder::DSL::Pipeline.new path, vars: vars
     end
 
     ##
@@ -45,10 +46,11 @@ module Rudder
     # at the +path+
     #
     # @param path [String] to the {Rudder::DSL::Pipeline} definition
+    # @param vars optional [Hash<(Symbol, String), Any>] of +Concourse+ variables
     # @return [Rudder::DSL::Pipeline] from +path+, fully evaluated
     #
-    def self.eval_from_file(path)
-      Rudder::DSL::Pipeline.new(path).eval
+    def self.eval_from_file(path, vars: {})
+      Rudder::DSL::Pipeline.new(path, vars: vars).eval
     end
   end
 end
